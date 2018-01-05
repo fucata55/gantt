@@ -3,6 +3,7 @@
 
 <head>
     <title>Gantt</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Cabin" />
     <link rel="stylesheet" href="main.css">
 </head>
 
@@ -18,34 +19,53 @@
     <main>
         <!--        LANDING PAGE     LANDING PAGE     LANDING PAGE     LANDING PAGE-->
         <section id='landingPage'>
-            <div id='landingPageLeftSide'>
-<!--                <a href='#'><img src="" alt="logo">scrolls down to description section</a>-->
-            </div>
-            <div id='landingPageRightSideRegister'>
-                <form class='register-form'>
-                    <input type="text" placeholder='Username'>
-                    <input type="text" placeholder='Password'>
-                    <input type="text" placholder='Confirm password'>
-                    <button>Submit</button>
-                    <p>Already have an account? <a href="#">Click here to sign in</a></p>
-                </form>
-            </div>
-            <div id='landingPageRightSideSignin'>
-                <form class='signin-form'>
-                    <input type="text" placeholder='Username'>
-                    <input type="text" placeholder='Password'>
-                    <button>Submit</button>
-                    <p>Don't have an account yet? <a href="#">Click here to register</a></p>
-                </form>
+            <div class='above-fold'>
+                <div class='inline-block' id='landingPageLeftSide'>
+                    <!--                    scrolls down to description section-->
+                    <div class='inline-block'>
+                        <a href='#'><img src="./gantt-logo.png" alt="logo"></a>
+                    </div>
+                </div>
+                <div class='inline-block' id='landingPageRightSideRegister'>
+                    <form class='register-form'>
+                        <legend>Register Today</legend>
+                        <input type="text" placeholder='Username'>
+                        <input type="text" placeholder='Password'>
+                        <input type="text" placholder='Confirm password'>
+                        <button>Submit</button>
+                        <p>Already have an account?</p>
+                        <a href="#">Click here to sign in</a>
+                    </form>
+                </div>
+                <!--
+<div class='inline-block' id='landingPageRightSideSignin'>
+    <form class='signin-form'>
+        <input type="text" placeholder='Username'>
+        <input type="text" placeholder='Password'>
+        <button>Submit</button>
+        <p>Don't have an account yet? <a href="#">Click here to register</a></p>
+    </form>
+</div>
+-->
             </div>
             <div id='appDescription'>
                 <h2>What is Gantt app?</h2>
-                <p>description</p>
+                <br />
+                <p>Gantt is a project management oftware inspired by Henry Gantt to advances visual representation of porject plans. By implementing Gantt chart to your project management, you will have a better focus on the project most crucial constraint, time frame, and a greate tool to communicate your plan</p>
+                <br />
                 <h2>Why should I care?</h2>
-                <p>because...</p>
-                <h2>Who should use Gantt app?</h2>
+                <br />
+                <p>As a writer called called Antoine de Saint-Exuperty who became a laureate of several of France's highest literary awards and a winner of the U.S. National Book Award once saif, "A goal without a plan is just a wish." Or, as the famous Founding Father of the United States, Benjamin Franklin, said "By failing to prepare, you are preparing to fail."</p>
+                <p>I can't emphasize enough how important is planning toward your goals</p>
+                <br />
+                <h2>Who can use Gantt?</h2>
+                <br />
                 <div class='invisible-container'>
-                    contains photoshopped
+                    <div class='inline-block'><img src="./artists.PNG" alt="artists">artists</div>
+                    <div class='inline-block'><img src="./businessmen.png" alt="businessmen">businessmen</div>
+                    <div class='inline-block'><img src="./constructor.PNG" alt="constructors">constructors</div>
+                    <div class='inline-block'><img src="./educators.PNG" alt="educators">educators</div>
+                    <div class='inline-block'><img src="IT.PNG" alt="IT">IT</div>
                 </div>
             </div>
         </section>
