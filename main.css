@@ -47,6 +47,19 @@ input {
     margin-bottom: 10px;
 }
 
+nav {
+    color: white;
+    height: 40px;
+    background: #16222A;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #3A6073, #16222A);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #3A6073, #16222A);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
 button {
     width: 120px;
     border-radius: 20px;
@@ -59,6 +72,14 @@ button {
     /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to bottom, #eef2f3, #52c234);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav img {
+    height: 30px;
 }
 
 .inline-block {
