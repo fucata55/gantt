@@ -18,12 +18,6 @@
                 <li>Sign out</li>
             </ul>
         </nav>
-        <!--
-        1. header bar
-            contains logo, username, signout
-        2. sub header
-            shows current level of navigation, either Projects level or Tasks level
--->
     </header>
     <main>
         <!--        LANDING PAGE     LANDING PAGE     LANDING PAGE     LANDING PAGE-->
@@ -90,7 +84,36 @@
             </div>
         </section>
 -->
+        <!--        HOME SECTION     HOME SECTION     HOME SECTION     HOME SECTION-->
+        <section id='homePage'>
+            <button>+ New Project</button>
+            <table>
+                <tr class='table-headers'>
+                    <th>#</th>
+                    <th>Project Name</th>
+                    <th>Predeccesor</th>
+                    <th>Duration</th>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><input class="longer-input" type="text" value="Pro Players Soccer game"></td>
+                    <td><input class="longer-input" type="text" value="Bike and Build"></td>
+                    <td><input class="shorter-input" type="text" value="365 days"></td>
+                    <td><input class="shorter-input" type="text" value="May 25, 2017"></td>
+                    <td><input class="shorter-input" type="text" value="April 4, 2018"></td>
+                    <td><select name="status" id="status">
+                        <option value="planning">Planning</option>
+                        <option value="paused">Paused</option>
+                        <option value="canceled">Canceled</option>
+                        <option value="complete">Complete</option>
+                    </select></td>
+                </tr>
 
+            </table>
+        </section>
     </main>
 </body>
 

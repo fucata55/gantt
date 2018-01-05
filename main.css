@@ -3,6 +3,7 @@
     font-size: 14px;
     font-style: normal;
     font-variant: normal;
+    color: white;
     margin: 0;
     padding: 0;
     border: 0;
@@ -16,6 +17,11 @@
     -webkit-padding-after: 0px;
     -webkit-padding-start: 0px;
     -webkit-padding-end: 0px;
+}
+
+html {
+    background-size: cover;
+    background-color: #e9ebee;
 }
 
 h1 {
@@ -47,17 +53,34 @@ input {
     margin-bottom: 10px;
 }
 
-nav {
-    color: white;
-    height: 40px;
-    background: #16222A;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #3A6073, #16222A);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #3A6073, #16222A);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 0px 10px 15px 0px;
+    text-align: left;
+}
+
+td {
+    padding: 15px 0px;
+    border-bottom: 1px solid red;
+}
+
+td input,
+th {
+    text-align: left;
+    margin-bottom: 0px
+}
+
+select {
+    border-radius: 10px;
+    height: 30px;
+    padding: 0px 10px;
+    border: 1px solid gray;
+    margin-bottom: 10px;
 }
 
 button {
@@ -74,20 +97,64 @@ button {
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+nav {
+    color: white;
+    height: 40px;
+    background: #16222A;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #3A6073, #16222A);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #3A6073, #16222A);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 5px 25px
+}
+
+nav ul {
+    text-align: justify;
+    width: 100%;
+}
+
+nav ul:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
 nav li {
     display: inline-block;
+    vertical-align: middle;
 }
 
 nav img {
     height: 30px;
 }
 
+.table-headers {
+    background: #16222A;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #3A6073, #16222A);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #3A6073, #16222A);
+    border-bottom: 1px solid blue;
+    margin: 0px 0px 20px 0px
+}
+
 .inline-block {
     display: inline-block;
 }
 
-legend {
-    margin-bottom: 10px;
+.longer-input {
+    width: 300px;
+}
+
+.shorter-input {
+    width: 130px;
+}
+
+#homePage {
+    padding: 30px
 }
 
 #landingPageLeftSide,
