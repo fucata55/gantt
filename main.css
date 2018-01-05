@@ -60,13 +60,29 @@ table {
 }
 
 th {
-    padding: 0px 10px 15px 0px;
+    padding: 15px 10px;
     text-align: left;
 }
 
 td {
-    padding: 15px 0px;
-    border-bottom: 1px solid red;
+    padding: 15px 10px;
+}
+
+tr:not(:first-child) {
+    background: #1A2980;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #26D0CE, #1A2980);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #26D0CE, #1A2980);
+    border-bottom: 1px solid #26D0CE;
+}
+
+tr:nth-child(even) {
+    background: #FF8008;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #FFC837, #FF8008);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #FFC837, #FF8008);
 }
 
 td input,
@@ -76,11 +92,11 @@ th {
 }
 
 select {
-    border-radius: 10px;
+    border-radius: 20px;
     height: 30px;
     padding: 0px 10px;
     border: 1px solid gray;
-    margin-bottom: 10px;
+    color: gray;
 }
 
 button {
@@ -141,16 +157,30 @@ nav img {
     margin: 0px 0px 20px 0px
 }
 
+.project td {
+    color: black;
+}
+
 .inline-block {
     display: inline-block;
 }
 
+option {
+    color: gray;
+}
+
 .longer-input {
     width: 300px;
+    color: gray;
 }
 
 .shorter-input {
     width: 130px;
+    color: gray;
+}
+
+.project-order {
+    color: white;
 }
 
 #homePage {
@@ -178,7 +208,6 @@ nav img {
 }
 
 #landingPageRightSideRegister {
-    color: white;
     background: #FF8008;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #FFC837, #FF8008);
