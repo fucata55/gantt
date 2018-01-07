@@ -317,9 +317,15 @@ option {
     nav {
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
+        height: 100px;
     }
     nav ul {
         height: 30px;
+        text-align: center
+    }
+    nav li {
+        display: block;
+        margin: 5px
     }
     .table-head-mobile {
         display: unset;
