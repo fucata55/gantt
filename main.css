@@ -44,6 +44,10 @@ p {
     line-height: 20px;
 }
 
+a {
+    text-decoration: none;
+}
+
 input {
     text-align: center;
     border-radius: 20px;
@@ -83,6 +87,7 @@ tr:nth-child(even) {
     background: -webkit-linear-gradient(to top, #FFC837, #FF8008);
     /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #FFC837, #FF8008);
+    border-bottom: 1px solid #FF8008;
 }
 
 td input,
@@ -183,6 +188,10 @@ option {
     color: white;
 }
 
+.table-head-mobile {
+    display: none;
+}
+
 #homePage {
     padding: 30px
 }
@@ -249,6 +258,15 @@ option {
     margin-right: auto;
 }
 
+#newProjectForm {
+    text-align: center;
+}
+
+#newProjectForm input,
+#newProjectForm button {
+    margin: 10px 5px;
+}
+
 #appDescription {
     color: white;
     background: #232526;
@@ -286,5 +304,41 @@ option {
     #appDescription {
         padding: 10px;
         text-align: center;
+    }
+}
+
+@media only screen and (max-width: 730px) {
+    table {
+        margin: 0px;
+    }
+    td {
+        display: block;
+    }
+    nav {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    nav ul {
+        height: 30px;
+    }
+    .table-head-mobile {
+        display: unset;
+    }
+    .table-headers {
+        display: none;
+    }
+    #homePage {
+        padding: 0px;
+    }
+    #newProjectForm {
+        text-align: center;
+    }
+    #newProjectForm input,
+    #newProjectForm button,
+    #newProjectForm select {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
     }
 }
