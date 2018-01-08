@@ -26,8 +26,9 @@ html {
 
 h1 {
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 26.4px;
+    color: black;
 }
 
 h2 {
@@ -116,6 +117,7 @@ button {
     /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to bottom, #eef2f3, #52c234);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    cursor: pointer;
 }
 
 nav {
@@ -152,6 +154,10 @@ nav img {
     height: 30px;
 }
 
+option {
+    color: gray;
+}
+
 .table-headers {
     background: #16222A;
     /* fallback for old browsers */
@@ -168,10 +174,6 @@ nav img {
 
 .inline-block {
     display: inline-block;
-}
-
-option {
-    color: gray;
 }
 
 .longer-input {
@@ -192,8 +194,97 @@ option {
     display: none;
 }
 
+.center {
+    text-align: center;
+}
+
+.center h1 {
+    margin: 5px;
+}
+
+.center .project-form {
+    margin-top: 20px;
+}
+
+.project-form {
+    text-align: center;
+}
+
+.project-form input,
+.project-form button {
+    margin: 10px 5px;
+}
+
+.project-form input {
+    text-align: left;
+}
+
+.seamless-form {
+    text-align: left;
+}
+
+.seamless-form input,
+.seamless-form select {
+    background-color: transparent;
+    color: white;
+    border-color: transparent;
+    padding: 0px;
+}
+
+.a {
+    width: 25%;
+}
+
+.b {
+    width: 15%;
+}
+
+.c {
+    width: 10%;
+}
+
+.d {
+    width: 14%;
+}
+
+.e {
+    width: 11%;
+}
+
+.seamless-form input:hover,
+.seamless-form select:hover {
+    cursor: pointer;
+}
+
+.seamless-form input:focus,
+.seamless-form select:focus {
+    background-color: white;
+    color: grey;
+}
+
+.seamless-form input:focus {
+    padding: 10px;
+}
+
+.notificationBar {
+    background-color: red;
+}
+
+.mini-button {
+    width: 30px;
+    border-radius: 5px;
+}
+
 #homePage {
     padding: 30px
+}
+
+#deleteButton {
+    background: #EB3349;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #F45C43, #EB3349);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #F45C43, #EB3349);
 }
 
 #landingPageLeftSide,
@@ -226,7 +317,6 @@ option {
 }
 
 #landingPageRightSideSignin {
-    color: white;
     background: #EB3349;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #F45C43, #EB3349);
@@ -256,15 +346,6 @@ option {
     width: 300px;
     margin-left: auto;
     margin-right: auto;
-}
-
-#newProjectForm {
-    text-align: center;
-}
-
-#newProjectForm input,
-#newProjectForm button {
-    margin: 10px 5px;
 }
 
 #appDescription {
@@ -336,15 +417,20 @@ option {
     #homePage {
         padding: 0px;
     }
-    #newProjectForm {
+    .project-form {
         text-align: center;
     }
-    #newProjectForm input,
-    #newProjectForm button,
-    #newProjectForm select {
+    .project-form input,
+    .project-form button,
+    .project-form select,
+    .mini-button,
+    #deleteButton {
         display: block;
         margin-left: auto;
         margin-right: auto;
         width: 90%;
+    }
+    .inline-block {
+        display: unset;
     }
 }

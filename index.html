@@ -22,6 +22,7 @@
     <main>
         <!--        LANDING PAGE     LANDING PAGE     LANDING PAGE     LANDING PAGE-->
 
+
         <!--
         <section id='landingPage'>
             <div class='above-fold'>
@@ -87,6 +88,7 @@
 -->
 
         <!--        HOME SECTION     HOME SECTION     HOME SECTION     HOME SECTION-->
+        <!--
         <section id='homePage'>
 
             <table>
@@ -101,7 +103,7 @@
                 </tr>
                 <tr>
                     <td colspan='7'>
-                        <form action="" id='newProjectForm'>
+                        <form action="" class='project-form'>
                             <input class="longer-input" type="text" value="New Pro Players Soccer game" required>
                             <input class="longer-input" type="text" value="New Bike and Build" required>
                             <input class="shorter-input" type="text" value="15 days" required>
@@ -140,7 +142,102 @@
                     </a>
                 </tr>
             </table>
+-->
 
+        <!--        </section>-->
+
+        <!--        PROJECT SECTION     PROJECT SECTION     PROJECT SECTION     PROJECT SECTION-->
+        <section id='projectSection'>
+            <div class='center'>
+                <h1>Pro Players Soccer game</h1>
+                <div class='notificationBar'>There's a task that doesn't match with the project time frame</div>
+                <form action="" class='project-form inline-block'>
+                    <input class="longer-input" type="text" value="New Pro Players Soccer game" required>
+                    <input class="longer-input" type="text" value="New Bike and Build" required>
+                    <input class="shorter-input" type="text" value="15 days" required>
+                    <input class="shorter-input" type="text" value="May 25, 2017" required>
+                    <input class="shorter-input" type="text" value="April 4, 2018" required>
+                    <select name="status" id="status" required>
+                    <option value="planning">Planning</option>
+                    <option value="paused">Paused</option>
+                    <option value="canceled">Canceled</option>
+                    <option value="complete">Complete</option>
+                </select>
+                    <button class='center'>Save Edit</button>
+                </form>
+                <button id='deleteButton'>Delete Project</button>
+            </div>
+            <table>
+                <tr class='table-headers'>
+                    <th>#</th>
+                    <th class='a'>Task Name</th>
+                    <th class='b'>Predeccesor</th>
+                    <th class='e'>Duration</th>
+                    <th class='d'>Start Date</th>
+                    <th class='d'>Finish Date</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td colspan='7'>
+                        <form action="" class='project-form'>
+                            <input class="longer-input a" type="text" value="New Pro Players Soccer game" required>
+                            <input class="longer-input b" type="text" value="New Bike and Build" required>
+                            <input class="shorter-input c" type="text" value="15 days" required>
+                            <input class="shorter-input d" type="text" value="May 25, 2017" required>
+                            <input class="shorter-input d" type="text" value="April 4, 2018" required>
+                            <select name="status" id="status" required>
+                                <option value="planning">Planning</option>
+                                <option value="paused">Paused</option>
+                                <option value="canceled">Canceled</option>
+                                <option value="complete">Complete</option>
+                            </select>
+                            <button>+ New Task</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='project-order'><span class='table-head-mobile'>#</span>1</td>
+                    <td colspan='7'>
+                        <form action="" class='project-form seamless-form'>
+                            <input class="longer-input a" type="text" value="Planning" required>
+                            <input class="longer-input b" type="text" value="New Bike and Build" required>
+                            <input class="shorter-input c" type="text" value="25 days" required>
+                            <input class="shorter-input d" type="text" value="May 25, 2017" required>
+                            <input class="shorter-input d" type="text" value="June 20, 2017" required>
+                            <select name="status" id="status" required>
+                                <option value="planning">Planning</option>
+                                <option value="paused">Paused</option>
+                                <option value="canceled">Canceled</option>
+                                <option value="complete">Complete</option>
+                            </select>
+                            <button class='mini-button'><img src="./edit-icon.png" alt=""></button>
+                            <button class='mini-button' id='deleteButton'><img src="./trash-icon.png" alt="trash"></button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class='project-order'><span class='table-head-mobile'>#</span>2</td>
+                    <td colspan='7'>
+                        <form action="" class='project-form seamless-form'>
+                            <input class="longer-input a" type="text" value="New Pro Players Soccer game" required>
+                            <input class="longer-input b" type="text" value="New Bike and Build" required>
+                            <input class="shorter-input c" type="text" value="180 days" required>
+                            <input class="shorter-input d" type="text" value="June 21, 2017" required>
+                            <input class="shorter-input d" type="text" value="April 4, 2018" required>
+                            <select name="status" id="status" required>
+                                <option value="planning">Planning</option>
+                                <option value="paused">Paused</option>
+                                <option value="canceled">Canceled</option>
+                                <option value="complete">Complete</option>
+                            </select>
+                            <button class='mini-button'><img src="./edit-icon.png" alt=""></button>
+                            <button class='mini-button' id='deleteButton'><img src="./trash-icon.png" alt="trash"></button>
+                        </form>
+                    </td>
+                </tr>
+
+
+            </table>
         </section>
     </main>
 </body>
