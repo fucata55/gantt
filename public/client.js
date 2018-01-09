@@ -77,8 +77,6 @@ $('.navigate-register-link').click(function (event) {
     $('#landingPageRightSideRegister').show()
 });
 
-
-
 $('.signin-form').submit(function (event) {
     //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
     event.preventDefault();
@@ -99,11 +97,19 @@ $('.project').click(function (event) {
     //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
     event.preventDefault();
     $('.hideMe').hide();
-    $('#projectSection').show()
+    $('#projectSection').show();
+    $('header').show()
 });
 
+
 $('.signout').click(function (event) {
-    //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
     event.preventDefault();
     location.reload();
+})
+
+$('#navigateHome').click(function (event) {
+    event.preventDefault();
+    $('.hideMe').hide();
+    $('#homePage').show();
+    $('header').show();
 });
