@@ -8,14 +8,14 @@
 </head>
 
 <body>
-    <header>
+    <header class='hideMe'>
         <nav>
             <ul>
                 <li>
                     <a href="#"><img src="./gantt-logo.png" alt="Gantt logo"></a>
                 </li>
                 <li>Hello, Henry!</li>
-                <li><a href="">Sign out</a></li>
+                <li><a id='signout' href="">Sign out</a></li>
             </ul>
         </nav>
     </header>
@@ -23,17 +23,17 @@
         <!--        LANDING PAGE     LANDING PAGE     LANDING PAGE     LANDING PAGE-->
 
 
-        <!--
-        <section id='landingPage'>
+
+        <section id='landingPage' class='hideMe'>
             <div class='above-fold'>
                 <div class='inline-block' id='landingPageLeftSide'>
-                                        scrolls down to description section
+                    <!--                    scrolls down to description section-->
                     <div class='inline-block'>
                         <a href='#'><img src="./gantt-logo.png" alt="logo"></a>
                     </div>
                 </div>
 
-                <div class='inline-block' id='landingPageRightSideRegister'>
+                <div class='inline-block hideMe' id='landingPageRightSideRegister'>
                     <form class='register-form'>
                         <h2>Register Today</h2>
                         <br>
@@ -42,14 +42,14 @@
                         <input type="text" placeholder='Confirm password'>
                         <button>Submit</button>
                         <p>Already have an account?</p>
-                        <a href="#">Click here to sign in</a>
+                        <a class='navigate-signin-link' href="#">Click here to sign in</a>
                     </form>
                 </div>
 
 
 
 
-                <div class='inline-block' id='landingPageRightSideSignin'>
+                <div class='inline-block hideMe' id='landingPageRightSideSignin'>
                     <form class='signin-form'>
                         <h2>Welcome back</h2>
                         <br>
@@ -57,7 +57,7 @@
                         <input type="text" placeholder='Password'>
                         <button>Submit</button>
                         <p>Don't have an account yet?</p>
-                        <a href="#">Click here to register</a>
+                        <a class='navigate-register-link' href="#">Click here to register</a>
                     </form>
                 </div>
 
@@ -85,11 +85,11 @@
                 </div>
             </div>
         </section>
--->
+
 
         <!--        HOME SECTION     HOME SECTION     HOME SECTION     HOME SECTION-->
-        <!--
-        <section id='homePage'>
+
+        <section id='homePage' class='hideMe'>
 
             <table>
                 <tr class='table-headers'>
@@ -119,8 +119,7 @@
                         </form>
                     </td>
                 </tr>
-                <tr>
-                    <a href="#">
+                <tr class='project'>
                         <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
                         <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
                         <td><span class='table-head-mobile'>Predecessor: </span>Bike and Build</td>
@@ -128,10 +127,8 @@
                         <td><span class='table-head-mobile'>Start Date: </span>May 25, 2017</td>
                         <td><span class='table-head-mobile'>Finish Date: </span>April 4, 2018</td>
                         <td><span class='table-head-mobile'>Status: </span>Planning</td>
-                    </a>
                 </tr>
-                <tr>
-                    <a href="">
+                <tr class='project'>
                         <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
                         <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
                         <td><span class='table-head-mobile'>Predecessor: </span>Bike and Build</td>
@@ -139,18 +136,17 @@
                         <td><span class='table-head-mobile'>Start Date: </span>May 25, 2017</td>
                         <td><span class='table-head-mobile'>Finish Date: </span>April 4, 2018</td>
                         <td><span class='table-head-mobile'>Status: </span>Planning</td>
-                    </a>
                 </tr>
             </table>
--->
 
-        <!--        </section>-->
+
+        </section>
 
         <!--        PROJECT SECTION     PROJECT SECTION     PROJECT SECTION     PROJECT SECTION-->
-        <section id='projectSection'>
+        <section id='projectSection' class='hideMe'>
             <div class='center'>
                 <h1>Pro Players Soccer game</h1>
-                <div class='notificationBar'>There's a task that doesn't match with the project time frame</div>
+                <div class='notificationBar' class='hideMe'>There's a task that doesn't match with the project time frame</div>
                 <form action="" class='project-form inline-block'>
                     <input class="longer-input" type="text" value="New Pro Players Soccer game" required>
                     <input class="longer-input" type="text" value="New Bike and Build" required>
@@ -167,6 +163,7 @@
                 </form>
                 <button id='deleteButton'>Delete Project</button>
             </div>
+            <div id="container"></div>
             <table>
                 <tr class='table-headers'>
                     <th>#</th>
@@ -240,6 +237,12 @@
             </table>
         </section>
     </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/xrange.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <script src='client.js'></script>
 </body>
 
 </html>

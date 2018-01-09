@@ -38,7 +38,7 @@ AS A LOGGED-IN USER
 ![UI Flow handwritten draft](https://github.com/fucata55/gantt-project-management-full-stack-capstone/blob/master/contact.jpg)
 
 ## Working Prototype
-Find a working prototype with Node at (no link yet)
+Find a working prototype with Node at https://gantt-project-management.herokuapp.com/
 Find a working prototype with React front end at (no link yet)
 
 

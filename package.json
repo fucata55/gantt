@@ -1,0 +1,41 @@
+{
+    "name": "gantt-project-management-software",
+    "version": "1.0.0",
+    "description": "Gantt is a project management software inspired by Henry Gantt that advances a project plan",
+    "main": "server.js",
+    "dependencies": {
+        "bcrypt": "^1.0.3",
+        "bcryptjs": "^2.4.3",
+        "express": "^4.16.2",
+        "heroku": "^0.2.0",
+        "mongo": "^0.1.0",
+        "mongoose": "^4.12.4",
+        "node-pre-gyp": "^0.6.39",
+        "passport": "^0.4.0",
+        "passport-http": "^0.3.0"
+    },
+    "devDependencies": {
+        "mocha": "^4.0.1",
+        "chai": "^4.1.2",
+        "chai-http": "^3.0.0",
+        "faker": "^4.1.0"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "test": "mocha"
+    },
+    "author": "Stephen Liong",
+    "license": "ISC",
+    "directories": {
+        "test": "test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fucata55/gantt-project-management-full-stack-capstone.git"
+    },
+    "keywords": [],
+    "bugs": {
+        "url": "https://github.com/fucata55/gantt-project-management-full-stack-capstone/issues"
+    },
+    "homepage": "https://github.com/fucata55/gantt-project-management-full-stack-capstone#readme"
+}
