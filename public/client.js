@@ -50,7 +50,88 @@ Highcharts.chart('container', {
 
 });
 
+let users = [
+    {
+        user: 'demo',
+        password: '1234'
+    },
+    {
+        user: 'demo2',
+        password: '123'
+    }
+];
+
+let projects = [{
+    projectName: $('#newProjectName').val(),
+    projectPredeccesor: $('#newProjectPredeccesor').val(),
+    projectDuration: $('#newProjectDuration').val(),
+    projectStart: $('#newProjectStart').val(),
+    projectEnd: $('#newProjectEnd').val(),
+    projectStatus: $('#status').val()
+}]
+
+
+
+
+let validateRegister = (username, password, confirm) => {
+    console.log(`validateRegister of user: ${username}, password: ${password}, confirm: ${confirm}`);
+    $('#passwordMustMatch').hide();
+    $('#userAlreadyExist').hide();
+    if (password !== confirm) {
+        $('#passwordMustMatch').show();
+        console.log('paswordvalidated')
+    } else {
+        let result = $.grep(users, function (e) {
+            return e.user == username;
+        });
+
+        console.log(result)
+        if (result.length !== 0) {
+            $('#userAlreadyExist').show();
+            console.log('username is exist');
+        } else {
+            console.log('username is still unique');
+            users.push({
+                user: username,
+                password: password
+            });
+            $('#landingPageRightSideRegister').hide();
+            $('#welcomeBack').hide();
+            $('#signIn').show();
+            $('#landingPageRightSideSignin').show();
+        }
+        //        console.log(users)
+    }
+}
+
 //use variables and functions (triggers)
+
+$('.scroll-js').click(function () {
+    $('html,body').animate({
+        scrollTop: $('#appDescription').offset().top
+    }, 'slow');
+});
+
+$('.register-form').submit(function (event) {
+    //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
+    event.preventDefault();
+    let registeredUser = $('#registeredUser').val();
+    let registeredPassword = $('#registeredPassword').val();
+    let registeredConfirmPassword = $('#registeredConfirmPassword').val();
+    validateRegister(registeredUser, registeredPassword, registeredConfirmPassword)
+})
+
+$('.project-form').submit(function (event) {
+    event.preventDefault();
+    projects.push({
+        projectName: $('#newProjectName').val(),
+        projectPredeccesor: $('#newProjectPredeccesor').val(),
+        projectDuration: $('#newProjectDuration').val(),
+        projectStart: $('#newProjectStart').val(),
+        projectEnd: $('#newProjectEnd').val(),
+        projectStatus: $('#status').val()
+    })
+})
 
 
 //document ready trigger
@@ -60,17 +141,7 @@ $(function () {
     $('#landingPageRightSideRegister').show();
 })
 
-
-$('.register-form').submit(function (event) {
-    //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
-    event.preventDefault();
-    $('.hideMe').hide();
-    $('#landingPage').show();
-    $('#landingPageRightSideSignin').show()
-})
-
 $('.navigate-register-link').click(function (event) {
-    //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
     event.preventDefault();
     $('.hideMe').hide();
     $('#landingPage').show();
@@ -78,7 +149,6 @@ $('.navigate-register-link').click(function (event) {
 });
 
 $('.signin-form').submit(function (event) {
-    //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
     event.preventDefault();
     $('.hideMe').hide();
     $('#homePage').show();
@@ -86,15 +156,14 @@ $('.signin-form').submit(function (event) {
 })
 
 $('.navigate-signin-link').click(function (event) {
-    //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
     event.preventDefault();
     $('.hideMe').hide();
     $('#landingPage').show();
+    $('#welcomeBack').show();
     $('#landingPageRightSideSignin').show()
 })
 
 $('.project').click(function (event) {
-    //if the page refreshes when you submit the form use "preventDefault()" to force JavaScript to handle the form submission
     event.preventDefault();
     $('.hideMe').hide();
     $('#projectSection').show();

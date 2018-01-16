@@ -29,17 +29,18 @@
                 <div class='inline-block' id='landingPageLeftSide'>
                     <!--                    scrolls down to description section-->
                     <div class='inline-block'>
-                        <a href='#'><img src="./gantt-logo.png" alt="logo"></a>
+                        <a href='#' class='scroll-js'><img src="./gantt-logo.png" alt="logo"></a>
                     </div>
                 </div>
 
                 <div class='inline-block hideMe' id='landingPageRightSideRegister'>
                     <form class='register-form'>
                         <h2>Register Today</h2>
-                        <br>
-                        <input type="text" placeholder='Username'>
-                        <input type="text" placeholder='Password'>
-                        <input type="text" placeholder='Confirm password'>
+                        <legend class='hideMe' id='passwordMustMatch'>Passwords must match</legend>
+                        <legend class='hideMe' id='userAlreadyExist'>Username already existed</legend>
+                        <input id='registeredUser' type="text" placeholder='Username' required>
+                        <input id='registeredPassword' type="text" placeholder='Password' required>
+                        <input id='registeredConfirmPassword' type="text" placeholder='Confirm password' required>
                         <button>Submit</button>
                         <p>Already have an account?</p>
                         <a class='navigate-signin-link' href="#">Click here to sign in</a>
@@ -51,8 +52,8 @@
 
                 <div class='inline-block hideMe' id='landingPageRightSideSignin'>
                     <form class='signin-form'>
-                        <h2>Welcome back</h2>
-                        <br>
+                        <h2 class='hideMe' id='signIn'>Sign In</h2>
+                        <h2 id='welcomeBack'>Welcome back</h2>
                         <input type="text" placeholder='Username'>
                         <input type="text" placeholder='Password'>
                         <button>Submit</button>
@@ -104,38 +105,38 @@
                 <tr>
                     <td colspan='7'>
                         <form action="" class='project-form'>
-                            <input class="longer-input" type="text" value="New Pro Players Soccer game" required>
-                            <input class="longer-input" type="text" value="New Bike and Build" required>
-                            <input class="shorter-input" type="text" value="15 days" required>
-                            <input class="shorter-input" type="text" value="May 25, 2017" required>
-                            <input class="shorter-input" type="text" value="April 4, 2018" required>
+                            <input class="longer-input" id='newProjectName' type="text" value="New Pro Players Soccer game" required>
+                            <input class="longer-input" id='newProjectPredeccesor' type="text" value="New Bike and Build" required>
+                            <input class="shorter-input" id='newProjectDuration' type="text" value="15 days" required>
+                            <input class="shorter-input" id='newProjectStart' type="text" value="May 25, 2017" required>
+                            <input class="shorter-input" id='newProjectEnd' type="text" value="April 4, 2018" required>
                             <select name="status" id="status" required>
                                 <option value="planning">Planning</option>
                                 <option value="paused">Paused</option>
                                 <option value="canceled">Canceled</option>
                                 <option value="complete">Complete</option>
                             </select>
-                            <button>+ New Project</button>
+                            <button type='submit'>+ New Project</button>
                         </form>
                     </td>
                 </tr>
                 <tr class='project'>
-                        <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
-                        <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
-                        <td><span class='table-head-mobile'>Predecessor: </span>Bike and Build</td>
-                        <td><span class='table-head-mobile'>Duration: </span>365 days</td>
-                        <td><span class='table-head-mobile'>Start Date: </span>May 25, 2017</td>
-                        <td><span class='table-head-mobile'>Finish Date: </span>April 4, 2018</td>
-                        <td><span class='table-head-mobile'>Status: </span>Planning</td>
+                    <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
+                    <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
+                    <td><span class='table-head-mobile'>Predecessor: </span>Bike and Build</td>
+                    <td><span class='table-head-mobile'>Duration: </span>365 days</td>
+                    <td><span class='table-head-mobile'>Start Date: </span>May 25, 2017</td>
+                    <td><span class='table-head-mobile'>Finish Date: </span>April 4, 2018</td>
+                    <td><span class='table-head-mobile'>Status: </span>Planning</td>
                 </tr>
                 <tr class='project'>
-                        <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
-                        <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
-                        <td><span class='table-head-mobile'>Predecessor: </span>Bike and Build</td>
-                        <td><span class='table-head-mobile'>Duration: </span>365 days</td>
-                        <td><span class='table-head-mobile'>Start Date: </span>May 25, 2017</td>
-                        <td><span class='table-head-mobile'>Finish Date: </span>April 4, 2018</td>
-                        <td><span class='table-head-mobile'>Status: </span>Planning</td>
+                    <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
+                    <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
+                    <td><span class='table-head-mobile'>Predecessor: </span>Bike and Build</td>
+                    <td><span class='table-head-mobile'>Duration: </span>365 days</td>
+                    <td><span class='table-head-mobile'>Start Date: </span>May 25, 2017</td>
+                    <td><span class='table-head-mobile'>Finish Date: </span>April 4, 2018</td>
+                    <td><span class='table-head-mobile'>Status: </span>Planning</td>
                 </tr>
             </table>
 
