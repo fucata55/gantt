@@ -53,11 +53,11 @@ Highcharts.chart('container', {
 let users = [
     {
         user: 'demo',
-        password: '1234'
+        password: 'demo'
     },
     {
         user: 'demo2',
-        password: '123'
+        password: 'demo2'
     }
 ];
 
@@ -74,12 +74,12 @@ let projects = [{
 
 
 let validateRegister = (username, password, confirm) => {
-    console.log(`validateRegister of user: ${username}, password: ${password}, confirm: ${confirm}`);
+    //    console.log(`validateRegister of user: ${username}, password: ${password}, confirm: ${confirm}`);
     $('#passwordMustMatch').hide();
     $('#userAlreadyExist').hide();
     if (password !== confirm) {
         $('#passwordMustMatch').show();
-        console.log('paswordvalidated')
+        //        console.log('paswordvalidated')
     } else {
         let result = $.grep(users, function (e) {
             return e.user == username;
@@ -88,7 +88,7 @@ let validateRegister = (username, password, confirm) => {
         console.log(result)
         if (result.length !== 0) {
             $('#userAlreadyExist').show();
-            console.log('username is exist');
+            //            console.log('username is exist');
         } else {
             console.log('username is still unique');
             users.push({
@@ -101,6 +101,23 @@ let validateRegister = (username, password, confirm) => {
             $('#landingPageRightSideSignin').show();
         }
         //        console.log(users)
+    }
+}
+
+let validateSignIn = (signedInUser, signedInPassword) => {
+    //    console.log('validateSignIn Ran')
+    let result = $.grep(users, function (e) {
+        return e.user == signedInUser && e.password == signedInPassword;
+    });
+    console.log(result)
+    if (result.length == 0) {
+        //        console.log('user and password combination invalid');
+        $('#invalidUser').show()
+    } else {
+        //        console.log('login successful');
+        $('.hideMe').hide();
+        $('#homePage').show();
+        $('header').show();
     }
 }
 
@@ -119,6 +136,13 @@ $('.register-form').submit(function (event) {
     let registeredPassword = $('#registeredPassword').val();
     let registeredConfirmPassword = $('#registeredConfirmPassword').val();
     validateRegister(registeredUser, registeredPassword, registeredConfirmPassword)
+})
+
+$('.signin-form').submit(function (event) {
+    event.preventDefault();
+    let signedInUser = $('#signedInUser').val();
+    let signedInPassword = $('#signedInPassword').val();
+    validateSignIn(signedInUser, signedInPassword);
 })
 
 $('.project-form').submit(function (event) {
@@ -147,13 +171,6 @@ $('.navigate-register-link').click(function (event) {
     $('#landingPage').show();
     $('#landingPageRightSideRegister').show()
 });
-
-$('.signin-form').submit(function (event) {
-    event.preventDefault();
-    $('.hideMe').hide();
-    $('#homePage').show();
-    $('header').show();
-})
 
 $('.navigate-signin-link').click(function (event) {
     event.preventDefault();
