@@ -50,6 +50,8 @@ Highcharts.chart('container', {
 
 });
 
+let theUser
+
 let users = [
     {
         user: 'demo',
@@ -61,15 +63,7 @@ let users = [
     }
 ];
 
-let projects = [{
-    projectName: $('#newProjectName').val(),
-    projectPredeccesor: $('#newProjectPredeccesor').val(),
-    projectDuration: $('#newProjectDuration').val(),
-    projectStart: $('#newProjectStart').val(),
-    projectEnd: $('#newProjectEnd').val(),
-    projectStatus: $('#status').val()
-}]
-
+let projects = [];
 
 
 
@@ -115,10 +109,27 @@ let validateSignIn = (signedInUser, signedInPassword) => {
         $('#invalidUser').show()
     } else {
         //        console.log('login successful');
+        theUser = result[0].user;
+        //        console.log(theUser);
+        $('.user-name').text(theUser);
         $('.hideMe').hide();
         $('#homePage').show();
         $('header').show();
     }
+}
+
+let renderAProject = (newProject) => {
+    $('#projectTable tr:last').after(`
+<tr class='project'>
+<td class='project-order'><span class='table-head-mobile'>ID: </span>${projects.length}</td>
+<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${newProject.projectName}</td>
+<td><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
+<td><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
+<td><span class='table-head-mobile'>Start Date: </span>${newProject.projectStart}</td>
+<td><span class='table-head-mobile'>Finish Date: </span>${newProject.projectEnd}</td>
+<td> <span class='table-head-mobile'>Status: </span>${newProject.projectStatus}</td>
+</tr>
+`)
 }
 
 //use variables and functions (triggers)
@@ -145,16 +156,24 @@ $('.signin-form').submit(function (event) {
     validateSignIn(signedInUser, signedInPassword);
 })
 
-$('.project-form').submit(function (event) {
+
+$('#newProjectJS').submit(function (event) {
     event.preventDefault();
+    console.log('new project button triggers');
+    console.log(
+        $('#newProjectName').val()
+    );
     projects.push({
         projectName: $('#newProjectName').val(),
         projectPredeccesor: $('#newProjectPredeccesor').val(),
         projectDuration: $('#newProjectDuration').val(),
         projectStart: $('#newProjectStart').val(),
         projectEnd: $('#newProjectEnd').val(),
-        projectStatus: $('#status').val()
-    })
+        projectStatus: $('#status option:selected').val(),
+        projectOwner: theUser
+    });
+    console.log(projects[projects.length - 1]);
+    renderAProject(projects[projects.length - 1]);
 })
 
 
@@ -180,12 +199,16 @@ $('.navigate-signin-link').click(function (event) {
     $('#landingPageRightSideSignin').show()
 })
 
-$('.project').click(function (event) {
+$('#projectTable').on('click', '.project', (event) => {
+    console.log('project trigger works');
     event.preventDefault();
+    let selectedProject = $(event.target).closest('.project-name').text();
+    console.log(selectedProject);
     $('.hideMe').hide();
     $('#projectSection').show();
     $('header').show()
 });
+
 
 
 $('.signout').click(function (event) {

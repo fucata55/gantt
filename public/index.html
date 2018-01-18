@@ -14,7 +14,7 @@
                 <li>
                     <a id='navigateHome' href="#"><img src="./gantt-logo.png" alt="Gantt logo"></a>
                 </li>
-                <li>Hello, Henry!</li>
+                <li>Hello, <span class='user-name'>Henry</span>!</li>
                 <li><a id='signout' href="">Sign out</a></li>
             </ul>
         </nav>
@@ -55,8 +55,8 @@
                         <h2 class='hideMe' id='signIn'>Sign In</h2>
                         <h2 id='welcomeBack'>Welcome back</h2>
                         <legend class='hideMe' id='invalidUser'>user and password combination invalid</legend>
-                        <input type="text" id='signedInUser' placeholder='Username'>
-                        <input type="text" id='signedInPassword' placeholder='Password'>
+                        <input type="text" id='signedInUser' placeholder='Username' value='demo'>
+                        <input type="text" id='signedInPassword' placeholder='Password' value='demo'>
                         <button>Submit</button>
                         <p>Don't have an account yet?</p>
                         <a class='navigate-register-link' href="#">Click here to register</a>
@@ -93,24 +93,24 @@
 
         <section id='homePage' class='hideMe'>
 
-            <table>
+            <table id='projectTable'>
                 <tr class='table-headers'>
                     <th>#</th>
-                    <th>Project Name</th>
-                    <th>Predeccesor</th>
-                    <th>Duration</th>
-                    <th>Start Date</th>
-                    <th>Finish Date</th>
+                    <th class='a'>Project Name</th>
+                    <th class='b'>Predeccesor</th>
+                    <th class='e'>Duration</th>
+                    <th class='d'>Start Date</th>
+                    <th class='d'>Finish Date</th>
                     <th>Status</th>
                 </tr>
                 <tr>
                     <td colspan='7'>
-                        <form action="" class='project-form'>
-                            <input class="longer-input" id='newProjectName' type="text" value="New Pro Players Soccer game" required>
-                            <input class="longer-input" id='newProjectPredeccesor' type="text" value="New Bike and Build" required>
-                            <input class="shorter-input" id='newProjectDuration' type="text" value="15 days" required>
-                            <input class="shorter-input" id='newProjectStart' type="text" value="May 25, 2017" required>
-                            <input class="shorter-input" id='newProjectEnd' type="text" value="April 4, 2018" required>
+                        <form action="" class='project-form' id='newProjectJS'>
+                            <input class="longer-input" id='newProjectName' type="text" placeholder="New Pro Players Soccer game" value required>
+                            <input class="longer-input" id='newProjectPredeccesor' type="text" placeholder="New Bike and Build" required>
+                            <input class="shorter-input" id='newProjectDuration' type="text" placeholder="15 days" required>
+                            <input class="shorter-input" id='newProjectStart' type="text" placeholder="May 25, 2017" required>
+                            <input class="shorter-input" id='newProjectEnd' type="text" placeholder="April 4, 2018" required>
                             <select name="status" id="status" required>
                                 <option value="planning">Planning</option>
                                 <option value="paused">Paused</option>
@@ -121,6 +121,7 @@
                         </form>
                     </td>
                 </tr>
+                <!--
                 <tr class='project'>
                     <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
                     <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
@@ -131,7 +132,7 @@
                     <td><span class='table-head-mobile'>Status: </span>Planning</td>
                 </tr>
                 <tr class='project'>
-                    <td class='project-order'><span class='table-head-mobile'>ID: </span>1</td>
+                    <td class='project-order'><span class='table-head-mobile'>ID: </span>2</td>
                     <td><span class='table-head-mobile'>Project Name: </span>Pro Players Soccer game</td>
                     <td><span class='table-head-mobile'>Predecessor: </span>Bike and Build</td>
                     <td><span class='table-head-mobile'>Duration: </span>365 days</td>
@@ -139,6 +140,7 @@
                     <td><span class='table-head-mobile'>Finish Date: </span>April 4, 2018</td>
                     <td><span class='table-head-mobile'>Status: </span>Planning</td>
                 </tr>
+-->
             </table>
 
 
