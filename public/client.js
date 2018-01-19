@@ -178,13 +178,22 @@ $('#newProjectJS').submit(function (event) {
     //    console.log(newProjectDuration)
     newProjectEnd.setDate(newProjectEnd.getDate() + newProjectDuration);
     //    console.log(newProjectEnd)
-
+    let dd = newProjectEnd.getDate();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    let mm = newProjectEnd.getMonth() + 1;
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    let y = newProjectEnd.getFullYear();
+    let formatedProjectEnd = mm + '/' + dd + '/' + y
     projects.push({
         projectName: $('#newProjectName').val(),
         projectPredeccesor: $('#newProjectPredeccesor').val(),
         projectDuration: newProjectDuration,
         projectStart: $('#newProjectStart').val(),
-        projectEnd: newProjectEnd,
+        projectEnd: formatedProjectEnd,
         projectStatus: $('#status option:selected').val(),
         projectOwner: theUser,
         projectTasks: []
