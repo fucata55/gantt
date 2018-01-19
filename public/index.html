@@ -4,6 +4,7 @@
 <head>
     <title>Gantt</title>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Cabin" />
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="main.css">
 </head>
 
@@ -98,7 +99,7 @@
                     <th>#</th>
                     <th class='a'>Project Name</th>
                     <th class='b'>Predeccesor</th>
-                    <th class='e'>Duration</th>
+                    <th class='e'>Duration Days</th>
                     <th class='d'>Start Date</th>
                     <th class='d'>Finish Date</th>
                     <th>Status</th>
@@ -108,9 +109,9 @@
                         <form action="" class='project-form' id='newProjectJS'>
                             <input class="longer-input" id='newProjectName' type="text" placeholder="New Pro Players Soccer game" value required>
                             <input class="longer-input" id='newProjectPredeccesor' type="text" placeholder="New Bike and Build" required>
-                            <input class="shorter-input" id='newProjectDuration' type="text" placeholder="15 days" required>
-                            <input class="shorter-input" id='newProjectStart' type="text" placeholder="May 25, 2017" required>
-                            <input class="shorter-input" id='newProjectEnd' type="text" placeholder="April 4, 2018" required>
+                            <input class="shorter-input" id='newProjectDuration' type="number" min='0' placeholder="15" required>
+                            <input class="shorter-input" id='newProjectStart' type="text" placeholder="2018-01-20" required>
+                            <!--                            <input class="shorter-input" id='newProjectEnd' type="date" placeholder="April 4, 2018" required>-->
                             <select name="status" id="status" required>
                                 <option value="planning">Planning</option>
                                 <option value="paused">Paused</option>
@@ -242,6 +243,7 @@
         </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/xrange.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>

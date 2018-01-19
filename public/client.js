@@ -123,13 +123,18 @@ let renderAProject = (newProject) => {
 <tr class='project'>
 <td class='project-order'><span class='table-head-mobile'>ID: </span>${projects.length}</td>
 <td class='project-name'><span class='table-head-mobile'>Project Name: </span>${newProject.projectName}</td>
-<td><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
-<td><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
-<td><span class='table-head-mobile'>Start Date: </span>${newProject.projectStart}</td>
-<td><span class='table-head-mobile'>Finish Date: </span>${newProject.projectEnd}</td>
-<td> <span class='table-head-mobile'>Status: </span>${newProject.projectStatus}</td>
+<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
+<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
+<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${newProject.projectStart}</td>
+<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${newProject.projectEnd}</td>
+<td class='project-status'> <span class='table-head-mobile'>Status: </span>${newProject.projectStatus}</td>
 </tr>
 `)
+}
+
+let populateProjectSummary = (project) => {
+    console.log('a')
+    console.log('a')
 }
 
 //use variables and functions (triggers)
@@ -163,14 +168,26 @@ $('#newProjectJS').submit(function (event) {
     console.log(
         $('#newProjectName').val()
     );
+    let newProjectStart = $('#newProjectStart').val();
+    //    console.log(newProjectStart)
+    let date = new Date(newProjectStart);
+    //    console.log(date)
+    let newProjectEnd = new Date(date);
+    //    console.log(newProjectEnd)
+    let newProjectDuration = parseInt($('#newProjectDuration').val());
+    //    console.log(newProjectDuration)
+    newProjectEnd.setDate(newProjectEnd.getDate() + newProjectDuration);
+    //    console.log(newProjectEnd)
+
     projects.push({
         projectName: $('#newProjectName').val(),
         projectPredeccesor: $('#newProjectPredeccesor').val(),
-        projectDuration: $('#newProjectDuration').val(),
+        projectDuration: newProjectDuration,
         projectStart: $('#newProjectStart').val(),
-        projectEnd: $('#newProjectEnd').val(),
+        projectEnd: newProjectEnd,
         projectStatus: $('#status option:selected').val(),
-        projectOwner: theUser
+        projectOwner: theUser,
+        projectTasks: []
     });
     console.log(projects[projects.length - 1]);
     renderAProject(projects[projects.length - 1]);
@@ -182,6 +199,7 @@ $(function () {
     $('.hideMe').hide();
     $('#landingPage').show();
     $('#landingPageRightSideRegister').show();
+    $('#newProjectStart').datepicker();
 })
 
 $('.navigate-register-link').click(function (event) {
@@ -202,9 +220,19 @@ $('.navigate-signin-link').click(function (event) {
 $('#projectTable').on('click', '.project', (event) => {
     console.log('project trigger works');
     event.preventDefault();
-    let selectedProject = $(event.target).closest('.project-name').text();
-    console.log(selectedProject);
+    //    let selectedProjectName = $(event.target).closest('.project').find('.project-name').text();
+    let selectedProject = {
+        projectName: 'Project 1',
+        projectPredeccesor: 'Predeccesor 1',
+        projectDuration: '33',
+        projectStart: '2018-04-20',
+        projectEnd: '2018-5-23',
+        projectStatus: 'canceled',
+        projectOwner: theUser,
+        projectTasks: []
+    }
     $('.hideMe').hide();
+    populateProjectSummary(selectedProject)
     $('#projectSection').show();
     $('header').show()
 });
