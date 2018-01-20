@@ -135,7 +135,6 @@ let validateSignIn = (signedInUser, signedInPassword) => {
 let renderAProject = (newProject) => {
     $('#projectTable tr:last').after(`
 <tr class='project'>
-<td class='project-order'><span class='table-head-mobile'>ID: </span>${projects.length}</td>
 <td class='project-name'><span class='table-head-mobile'>Project Name: </span>${newProject.projectName}</td>
 <td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
 <td class='project-duration'><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
@@ -183,15 +182,10 @@ $('#newProjectJS').submit(function (event) {
         $('#newProjectName').val()
     );
     let newProjectStart = $('#newProjectStart').val();
-    //    console.log(newProjectStart)
     let date = new Date(newProjectStart);
-    //    console.log(date)
     let newProjectEnd = new Date(date);
-    //    console.log(newProjectEnd)
     let newProjectDuration = parseInt($('#newProjectDuration').val());
-    //    console.log(newProjectDuration)
     newProjectEnd.setDate(newProjectEnd.getDate() + newProjectDuration);
-    //    console.log(newProjectEnd)
     let dd = newProjectEnd.getDate();
     if (dd < 10) {
         dd = '0' + dd;
@@ -202,18 +196,32 @@ $('#newProjectJS').submit(function (event) {
     }
     let y = newProjectEnd.getFullYear();
     let formatedProjectEnd = mm + '/' + dd + '/' + y
-    projects.push({
+    let newProject = {
         projectName: $('#newProjectName').val(),
         projectPredeccesor: $('#newProjectPredeccesor').val(),
         projectDuration: newProjectDuration,
         projectStart: $('#newProjectStart').val(),
         projectEnd: formatedProjectEnd,
         projectStatus: $('#status option:selected').val(),
-        projectOwner: theUser,
-        projectTasks: []
-    });
-    console.log(projects[projects.length - 1]);
-    renderAProject(projects[projects.length - 1]);
+        projectOwner: theUser
+    };
+    console.log(newProject);
+    $.ajax({
+            method: 'POST',
+            url: '/user/project',
+            dataType: 'json',
+            data: JSON.stringify(newProject),
+            contentType: 'application/json'
+        })
+        //POST will respond an empty note with unique ID
+        .done(function (project) {
+            renderAProject(project);
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
 })
 
 

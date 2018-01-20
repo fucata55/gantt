@@ -56,8 +56,8 @@
                         <h2 class='hideMe' id='signIn'>Sign In</h2>
                         <h2 id='welcomeBack'>Welcome back</h2>
                         <legend class='hideMe' id='invalidUser'>user and password combination invalid</legend>
-                        <input type="text" id='signedInUser' placeholder='Username'>
-                        <input type="text" id='signedInPassword' placeholder='Password'>
+                        <input type="text" id='signedInUser' placeholder='Username' value='demo4'>
+                        <input type="text" id='signedInPassword' placeholder='Password' value='1234'>
                         <button>Submit</button>
                         <p>Don't have an account yet?</p>
                         <a class='navigate-register-link' href="#">Click here to register</a>
@@ -96,7 +96,6 @@
 
             <table id='projectTable'>
                 <tr class='table-headers'>
-                    <th>#</th>
                     <th class='a'>Project Name</th>
                     <th class='b'>Predeccesor</th>
                     <th class='e'>Duration Days</th>
@@ -105,7 +104,6 @@
                     <th>Status</th>
                 </tr>
                 <tr>
-                    <td></td>
                     <td colspan='6'>
                         <form action="" class='project-form' id='newProjectJS'>
                             <input class="longer-input" id='newProjectName' type="text" placeholder="New Pro Players Soccer game" value required>
@@ -114,10 +112,11 @@
                             <input class="shorter-input" id='newProjectStart' type="text" placeholder="2018-01-20" required>
                             <!--                            <input class="shorter-input" id='newProjectEnd' type="date" placeholder="April 4, 2018" required>-->
                             <select name="status" id="status" required>
-                                <option value="planning">Planning</option>
-                                <option value="paused">Paused</option>
-                                <option value="canceled">Canceled</option>
-                                <option value="complete">Complete</option>
+                                <option value="Planning">Planning</option>
+                                <option value="On Going">On Going</option>
+                                <option value="Paused">Paused</option>
+                                <option value="Canceled">Canceled</option>
+                                <option value="Completed">Complete</option>
                             </select>
                             <button type='submit'>+ New Project</button>
                         </form>
@@ -163,7 +162,6 @@
             <div id="container"></div>
             <table>
                 <tr class='table-headers'>
-                    <th>#</th>
                     <th class='a'>Task Name</th>
                     <th class='b'>Predeccesor</th>
                     <th class='e'>Duration</th>
@@ -172,7 +170,7 @@
                     <th>Status</th>
                 </tr>
                 <tr>
-                    <td colspan='7'>
+                    <td colspan='6'>
                         <form action="" class='project-form'>
                             <input class="longer-input a" type="text" value="New Pro Players Soccer game" required>
                             <input class="longer-input b" type="text" value="New Bike and Build" required>

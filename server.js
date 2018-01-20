@@ -12,7 +12,10 @@ const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const bcrypt = require('bcryptjs');
 
-const User = require('./models/user');
+const {
+    User,
+    Project
+} = require('./models/user');
 
 const config = require('./config');
 
@@ -201,13 +204,16 @@ app.get('/user/notes/all/:user', (req, res) => {
 });
 
 //Save notes in db
-app.post('/user/notes', (req, res) => {
-    Note
+app.post('/user/project', (req, res) => {
+    Project
         .create({
-            title: req.body.title,
-            body: req.body.body,
-            type: req.body.type,
-            username: req.body.username
+            projectName: req.body.projectName,
+            projectPredeccesor: req.body.projectPredeccesor,
+            projectDuration: req.body.projectDuration,
+            projectStart: req.body.projectStart,
+            projectEnd: req.body.projectEnd,
+            projectStatus: req.body.projectStatus,
+            projectOwner: req.body.projectOwner
         }, (err, item) => {
             if (err) {
                 return res.status(500).json({
@@ -215,7 +221,7 @@ app.post('/user/notes', (req, res) => {
                 });
             }
             if (item) {
-                console.log(`A new note is created. note is ${item}`);
+                console.log(`A new project is created. project is ${item}`);
                 return res.status(200).json(item);
             }
         });
