@@ -68,33 +68,40 @@ let projects = [];
 
 
 let validateRegister = (username, password, confirm) => {
-    //    console.log(`validateRegister of user: ${username}, password: ${password}, confirm: ${confirm}`);
+    console.log(`validateRegister of user: ${username}, password: ${password}, confirm: ${confirm}`);
     $('#passwordMustMatch').hide();
     $('#userAlreadyExist').hide();
     if (password !== confirm) {
         $('#passwordMustMatch').show();
         //        console.log('paswordvalidated')
     } else {
-        let result = $.grep(users, function (e) {
-            return e.user == username;
-        });
+        let userData = {
+            username: username,
+            password: password
+        };
 
-        console.log(result)
-        if (result.length !== 0) {
-            $('#userAlreadyExist').show();
-            //            console.log('username is exist');
-        } else {
-            console.log('username is still unique');
-            users.push({
-                user: username,
-                password: password
+        $.ajax({
+                type: 'POST',
+                url: '/register',
+                dataType: 'json',
+                data: JSON.stringify(userData),
+                contentType: 'application/json'
+            })
+            //expect request POST will respond user data
+            .done(function (result) {
+                console.log(result);
+                console.log('username is still unique');
+                $('#landingPageRightSideRegister').hide();
+                $('#welcomeBack').hide();
+                $('#signIn').show();
+                $('#landingPageRightSideSignin').show();
+            })
+            .fail(function (jqXHR, error, errorThrown) {
+                $('#userAlreadyExist').show();
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
             });
-            $('#landingPageRightSideRegister').hide();
-            $('#welcomeBack').hide();
-            $('#signIn').show();
-            $('#landingPageRightSideSignin').show();
-        }
-        //        console.log(users)
     }
 }
 

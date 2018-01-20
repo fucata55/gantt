@@ -59,10 +59,8 @@ function closeServer() {
 
 
 //responding user registration
-app.post('/user/signup', (req, res) => {
-    console.log(req.body.firstName, req.body.lastName, req.body.email, req.body.username, req.body.password);
-    //check if username used to registered unique in database
-    //    Find an username input
+app.post('/register', (req, res) => {
+    console.log(req.body.username, req.body.password);
     User
         .find({
             username: req.body.username
@@ -105,9 +103,6 @@ app.post('/user/signup', (req, res) => {
                             }
 
                             User.create({
-                                firstName: req.body.firstName,
-                                lastName: req.body.lastName,
-                                email: req.body.email,
                                 username: username,
                                 password: hash
                             }, (err, item) => {
