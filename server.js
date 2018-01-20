@@ -184,12 +184,12 @@ app.get('/users', (req, res) => {
         });
 })
 
-//Retrieve user's note(s)
-app.get('/user/notes/all/:user', (req, res) => {
+//Retrieve a user's project(s)
+app.get('/user/project/all/:user', (req, res) => {
     console.log('this is get user', req.params.user)
-    Note
+    Project
         .find({
-            username: req.params.user
+            projectOwner: req.params.user
         }, (err, items) => {
             if (err) {
                 return res.status(500).json({

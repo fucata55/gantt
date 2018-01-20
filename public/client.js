@@ -119,6 +119,7 @@ let validateSignIn = (signedInUser, signedInPassword) => {
         }) //show login result
         .done(function (result) {
             theUser = result.username
+            getProjects(theUser);
             $('.user-name').text(theUser);
             $('.hideMe').hide();
             $('#homePage').show();
@@ -126,6 +127,33 @@ let validateSignIn = (signedInUser, signedInPassword) => {
         })
         .fail(function (jqXHR, error, errorThrown) {
             $('#invalidUser').show();
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+let getProjects = username => {
+    $('.project').remove();
+    $.ajax({
+            type: 'GET',
+            url: '/user/project/all/' + username
+        })
+        .done(projects => {
+            projects.forEach(project => {
+                $('#projectTable tr:last').after(`
+<tr class='project' id='${project._id}'>
+<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${project.projectName}</td>
+<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${project.projectPredeccesor}</td>
+<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${project.projectDuration}</td>
+<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${project.projectStart}</td>
+<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${project.projectEnd}</td>
+<td class='project-status'> <span class='table-head-mobile'>Status: </span>${project.projectStatus}</td>
+</tr>`)
+            })
+
+        })
+        .fail((jqXHR, error, errorThrown) => {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
@@ -149,6 +177,8 @@ let populateProjectSummary = (project) => {
     console.log('a')
     console.log('a')
 }
+
+
 
 //use variables and functions (triggers)
 
@@ -278,6 +308,7 @@ $('.signout').click(function (event) {
 $('#navigateHome').click(function (event) {
     event.preventDefault();
     $('.hideMe').hide();
+    getProjects(theUser);
     $('#homePage').show();
     $('header').show();
 });
