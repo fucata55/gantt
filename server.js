@@ -124,7 +124,7 @@ app.post('/register', (req, res) => {
 });
 
 //responding user login
-app.post('/user/signin', (req, res) => {
+app.post('/signin', (req, res) => {
     User
         .findOne({
             username: req.body.username

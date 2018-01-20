@@ -106,23 +106,30 @@ let validateRegister = (username, password, confirm) => {
 }
 
 let validateSignIn = (signedInUser, signedInPassword) => {
-    //    console.log('validateSignIn Ran')
-    let result = $.grep(users, function (e) {
-        return e.user == signedInUser && e.password == signedInPassword;
-    });
-    console.log(result)
-    if (result.length == 0) {
-        //        console.log('user and password combination invalid');
-        $('#invalidUser').show()
-    } else {
-        //        console.log('login successful');
-        theUser = result[0].user;
-        //        console.log(theUser);
-        $('.user-name').text(theUser);
-        $('.hideMe').hide();
-        $('#homePage').show();
-        $('header').show();
-    }
+    const userData = {
+        username: signedInUser,
+        password: signedInPassword
+    };
+    $.ajax({
+            type: 'POST',
+            url: '/signin',
+            dataType: 'json',
+            data: JSON.stringify(userData),
+            contentType: 'application/json'
+        }) //show login result
+        .done(function (result) {
+            theUser = result.username
+            $('.user-name').text(theUser);
+            $('.hideMe').hide();
+            $('#homePage').show();
+            $('header').show();
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            $('#invalidUser').show();
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
 }
 
 let renderAProject = (newProject) => {
