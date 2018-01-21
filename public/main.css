@@ -288,7 +288,8 @@ option {
     padding: 30px
 }
 
-#deleteButton {
+#deleteButton,
+#deleteProjectButton {
     background: #EB3349;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to bottom, #F45C43, #EB3349);

@@ -265,6 +265,7 @@ app.get('/user/notes/a/:id', function (req, res) {
         });
 });
 
+//update project
 app.put('/user/project/:id', (req, res) => {
     let toUpdate = {};
     let updateableFields = ['_id', 'projectName', 'projectPredeccesor', 'projectDuration', 'projectStart', 'projectEnd', 'projectStatus'];
@@ -276,22 +277,22 @@ app.put('/user/project/:id', (req, res) => {
 
     console.log(`req.params.id is ${req.params.id}`)
     Project
-        .findByIdAndUpdate(req.params.id, {
-            $set: toUpdate
+        .findByIdAndUpdate(req.params.id, toUpdate, {
+            new: true
         })
-        .then(function (project) {
-            return res.status(204).json(project);
+        .then(project => {
+            console.log(project);
+            return res.status(204);
+            //.json(project);
         })
-        .catch(function (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        });
+        .catch(err => res.status(500).json({
+            message: 'Internal Server Error'
+        }));
 });
 
-app.delete('/user/notes/c/:id', (req, res) => {
+app.delete('/user/project/:id', (req, res) => {
     console.log(req.params.id);
-    Note
+    Project
         .findByIdAndRemove(req.params.id)
         .then(() => {
             return res.status(204).end();

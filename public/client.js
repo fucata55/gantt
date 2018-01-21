@@ -1,56 +1,6 @@
 //Define variables and functions
-Highcharts.chart('container', {
-    chart: {
-        type: 'xrange'
-    },
-    title: {
-        text: 'Pro players Soccer Game'
-    },
-    xAxis: {
-        type: 'datetime'
-    },
-    yAxis: {
-        title: {
-            text: ''
-        },
-        categories: ['Planning', 'Development', 'Testing'],
-        reversed: true
-    },
-    series: [{
-        name: 'Project 1',
-        // pointPadding: 0,
-        // groupPadding: 0,
-        borderColor: 'gray',
-        pointWidth: 20,
-        data: [{
-            x: Date.UTC(2014, 10, 21),
-            x2: Date.UTC(2014, 11, 2),
-            y: 0
-        }, {
-            x: Date.UTC(2014, 11, 2),
-            x2: Date.UTC(2014, 11, 5),
-            y: 1
-        }, {
-            x: Date.UTC(2014, 11, 8),
-            x2: Date.UTC(2014, 11, 9),
-            y: 2
-        }, {
-            x: Date.UTC(2014, 11, 9),
-            x2: Date.UTC(2014, 11, 19),
-            y: 1
-        }, {
-            x: Date.UTC(2014, 11, 10),
-            x2: Date.UTC(2014, 11, 23),
-            y: 2
-        }],
-        dataLabels: {
-            enabled: false
-        }
-    }]
-
-});
-
 let theUser
+let theProject
 
 let users = [
     {
@@ -133,73 +83,6 @@ let validateSignIn = (signedInUser, signedInPassword) => {
         });
 }
 
-let getProjects = username => {
-    $('.project').remove();
-    $.ajax({
-            type: 'GET',
-            url: '/user/project/all/' + username
-        })
-        .done(projects => {
-            projects.forEach(project => {
-                $('#projectTable tr:last').after(`
-<tr class='project' id='${project._id}'>
-<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${project.projectName}</td>
-<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${project.projectPredeccesor}</td>
-<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${project.projectDuration}</td>
-<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${project.projectStart}</td>
-<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${project.projectEnd}</td>
-<td class='project-status'> <span class='table-head-mobile'>Status: </span>${project.projectStatus}</td>
-</tr>`)
-            })
-
-        })
-        .fail((jqXHR, error, errorThrown) => {
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-        });
-}
-
-let renderAProject = (newProject) => {
-    $('#projectTable tr:last').after(`
-<tr class='project' id='${newProject._id}>
-<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${newProject.projectName}</td>
-<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
-<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
-<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${newProject.projectStart}</td>
-<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${newProject.projectEnd}</td>
-<td class='project-status'> <span class='table-head-mobile'>Status: </span>${newProject.projectStatus}</td>
-</tr>
-`)
-}
-
-//prefill project summary at project summary form
-let populateProjectSummary = (project) => {
-    $.ajax({
-            method: 'GET',
-            url: '/user/project/' + project,
-            dataType: 'json',
-            contentType: 'application/json'
-        })
-        .done(function (project) {
-            console.log('populateProjectSummary ran');
-            $('.project-summary').attr('id', project[0]._id);
-            $('#projectName').val(project[0].projectName);
-            $('#projectPredeccesor').val(project[0].projectPredeccesor);
-            $('#projectDuration').val(project[0].projectDuration);
-            $('#projectStart').val(project[0].projectStart);
-            $('#projectEnd').val(project[0].projectEnd);
-            $('#projectStatus').val(project[0].projectStatus);
-        })
-        .fail(function (jqXHR, error, errorThrown) {
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-        });
-}
-
-
-
 //use variables and functions (triggers)
 
 $('.scroll-js').click(function () {
@@ -274,12 +157,95 @@ $('#newProjectJS').submit(function (event) {
         });
 })
 
+let getAProject = projectId => {
+    $.ajax({
+            type: 'GET',
+            url: '/user/project/' + projectId
+        })
+        .done(project => {
+            console.log(project);
+            $('#projectSection h1').text(project[0].projectName)
+        })
+        .fail((jqXHR, error, errorThrown) => {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+let getProjects = username => {
+    $('.project').remove();
+    $.ajax({
+            type: 'GET',
+            url: '/user/project/all/' + username
+        })
+        .done(projects => {
+            projects.forEach(project => {
+                $('#projectTable tr:last').after(`
+<tr class='project' id='${project._id}'>
+<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${project.projectName}</td>
+<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${project.projectPredeccesor}</td>
+<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${project.projectDuration}</td>
+<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${project.projectStart}</td>
+<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${project.projectEnd}</td>
+<td class='project-status'> <span class='table-head-mobile'>Status: </span>${project.projectStatus}</td>
+</tr>`)
+            })
+
+        })
+        .fail((jqXHR, error, errorThrown) => {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+let renderAProject = (newProject) => {
+    $('#projectTable tr:last').after(`
+<tr class='project' id='${newProject._id}'>
+<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${newProject.projectName}</td>
+<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
+<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
+<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${newProject.projectStart}</td>
+<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${newProject.projectEnd}</td>
+<td class='project-status'> <span class='table-head-mobile'>Status: </span>${newProject.projectStatus}</td>
+</tr>
+`)
+}
+
+//populate project summary at project summary form
+let populateProjectSummary = (project) => {
+    $.ajax({
+            method: 'GET',
+            url: '/user/project/' + project
+        })
+        .done(project => {
+            showChart(project);
+            console.log('populateProjectSummary ran', project[0]);
+            $('#projectSection h1').text(project[0].projectName);
+            $('.project-summary').attr('id', project[0]._id);
+            $('#projectName').val(project[0].projectName);
+            $('#projectPredeccesor').val(project[0].projectPredeccesor);
+            $('#projectDuration').val(project[0].projectDuration);
+            $('#projectStart').val(project[0].projectStart);
+            $('#projectEnd').val(project[0].projectEnd);
+            $('#projectStatus').val(project[0].projectStatus);
+
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
+
 //update project
 $('.project-summary').submit(function (event) {
     event.preventDefault();
     console.log('project summary button triggers');
     console.log(
-        $('#projectName').val()
+        $('.project-summary').attr('id')
     );
     let projectStart = $('#projectStart').val();
     let date = new Date(projectStart);
@@ -314,16 +280,95 @@ $('.project-summary').submit(function (event) {
             data: JSON.stringify(project),
             contentType: 'application/json'
         })
-        .done(function (project) {
+        .done(aproject => {
             //            update chart details accordingly
-            console.log('change project summary success', project)
+            console.log('change project summary success');
+            getAProject(project._id);
+            //            $('#projectSection h1').text(project[0].projectName);
+        })
+        .fail((jqXHR, error, errorThrown) => {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+})
+
+let showChart = (project, tasks) => {
+    console.log('showChart ran', project);
+    let aproject = project[0];
+    Highcharts.chart('container', {
+        chart: {
+            type: 'xrange'
+        },
+        title: {
+            text: aproject.projectName
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            categories: ['test', 'Planning', 'Development', 'Testing'],
+            reversed: true
+        },
+        series: [{
+            //name: 'Project 1',
+            // pointPadding: 0,
+            // groupPadding: 0,
+            borderColor: 'gray',
+            pointWidth: 20,
+            data: [{
+                x: Date.UTC(2014, 10, 01),
+                x2: Date.UTC(2014, 11, 2),
+                y: 0
+            }, {
+                x: Date.UTC(2014, 11, 2),
+                x2: Date.UTC(2014, 11, 5),
+                y: 1
+            }, {
+                x: Date.UTC(2014, 11, 8),
+                x2: Date.UTC(2014, 11, 9),
+                y: 2
+            }, {
+                x: Date.UTC(2014, 11, 9),
+                x2: Date.UTC(2014, 11, 19),
+                y: 1
+            }, {
+                x: Date.UTC(2014, 11, 10),
+                x2: Date.UTC(2014, 11, 23),
+                y: 2
+            }, {
+                x: Date.UTC(2014, 11, 10),
+                x2: Date.UTC(2014, 11, 23),
+                y: 3
+            }],
+            dataLabels: {
+                enabled: false
+            }
+        }]
+    })
+};
+
+let deleteProject = projectIdToDelete => {
+    $.ajax({
+            type: 'DELETE',
+            url: '/user/project/' + projectIdToDelete
+        })
+        .done(() => {
+            console.log(`project ${projectIdToDelete} is successfully deleted`);
+            $('.hideMe').hide();
+            getProjects(theUser);
+            $('#homePage').show();
+            $('header').show();
         })
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
         });
-})
+}
 
 //document ready trigger
 $(function () {
@@ -373,3 +418,9 @@ $('#navigateHome').click(function (event) {
     $('#homePage').show();
     $('header').show();
 });
+
+$('#deleteProjectButton').click(event => {
+    let projectIdToDelete = $(event.target).closest('.center').find('.project-summary').attr('id');
+    console.log('delete trigger', projectIdToDelete);
+    deleteProject(projectIdToDelete);
+})
