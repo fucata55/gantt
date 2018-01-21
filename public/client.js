@@ -173,6 +173,7 @@ let renderAProject = (newProject) => {
 `)
 }
 
+//prefill project summary at project summary form
 let populateProjectSummary = (project) => {
     $.ajax({
             method: 'GET',
@@ -182,8 +183,7 @@ let populateProjectSummary = (project) => {
         })
         .done(function (project) {
             console.log('populateProjectSummary ran');
-            console.log(project);
-            $('.project-summary').attr('id', project._id);
+            $('.project-summary').attr('id', project[0]._id);
             $('#projectName').val(project[0].projectName);
             $('#projectPredeccesor').val(project[0].projectPredeccesor);
             $('#projectDuration').val(project[0].projectDuration);
@@ -224,7 +224,7 @@ $('.signin-form').submit(function (event) {
     validateSignIn(signedInUser, signedInPassword);
 })
 
-
+//create new project
 $('#newProjectJS').submit(function (event) {
     event.preventDefault();
     console.log('new project button triggers');
@@ -274,6 +274,56 @@ $('#newProjectJS').submit(function (event) {
         });
 })
 
+//update project
+$('.project-summary').submit(function (event) {
+    event.preventDefault();
+    console.log('project summary button triggers');
+    console.log(
+        $('#projectName').val()
+    );
+    let projectStart = $('#projectStart').val();
+    let date = new Date(projectStart);
+    let projectEnd = new Date(date);
+    let projectDuration = parseInt($('#projectDuration').val());
+    projectEnd.setDate(projectEnd.getDate() + projectDuration);
+    let dd = projectEnd.getDate();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    let mm = projectEnd.getMonth() + 1;
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    let y = projectEnd.getFullYear();
+    let formatedProjectEnd = mm + '/' + dd + '/' + y
+    let project = {
+        _id: $('.project-summary').attr('id'),
+        projectName: $('#projectName').val(),
+        projectPredeccesor: $('#projectPredeccesor').val(),
+        projectDuration: projectDuration,
+        projectStart: $('#projectStart').val(),
+        projectEnd: formatedProjectEnd,
+        projectStatus: $('#projectStatus option:selected').val(),
+        projectOwner: theUser
+    };
+    console.log(project);
+    $.ajax({
+            method: 'PUT',
+            url: '/user/project/' + project._id,
+            dataType: 'json',
+            data: JSON.stringify(project),
+            contentType: 'application/json'
+        })
+        .done(function (project) {
+            //            update chart details accordingly
+            console.log('change project summary success', project)
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+})
 
 //document ready trigger
 $(function () {

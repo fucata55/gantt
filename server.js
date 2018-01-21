@@ -205,7 +205,7 @@ app.get('/user/project/all/:user', (req, res) => {
 
 //Retrieve user project detail
 app.get('/user/project/:projectId', (req, res) => {
-    console.log('this is get user', req.params.user)
+    console.log('this is get project', req.params.projectId)
     Project
         .find({
             _id: req.params.projectId
@@ -247,20 +247,6 @@ app.post('/user/project', (req, res) => {
         });
 });
 
-//app.get('/user/notes/', (req, res) => {
-//    Note
-//        .find()
-//        .then((note) => {
-//            return res.status(200).json(note);
-//        })
-//        .catch(function () {
-//            console.error(err);
-//            res.status(500).json({
-//                message: 'Internal Server Error'
-//            });
-//        });
-//})
-
 
 
 app.get('/user/notes/a/:id', function (req, res) {
@@ -279,20 +265,22 @@ app.get('/user/notes/a/:id', function (req, res) {
         });
 });
 
-app.put('/user/notes/b/:id', (req, res) => {
+app.put('/user/project/:id', (req, res) => {
     let toUpdate = {};
-    let updateableFields = ['title', 'body', 'type'];
+    let updateableFields = ['_id', 'projectName', 'projectPredeccesor', 'projectDuration', 'projectStart', 'projectEnd', 'projectStatus'];
     updateableFields.forEach(function (field) {
         if (field in req.body) {
             toUpdate[field] = req.body[field];
         }
     });
-    Note
+
+    console.log(`req.params.id is ${req.params.id}`)
+    Project
         .findByIdAndUpdate(req.params.id, {
             $set: toUpdate
         })
-        .then(function (note) {
-            return res.status(204).json(note);
+        .then(function (project) {
+            return res.status(204).json(project);
         })
         .catch(function (err) {
             return res.status(500).json({
