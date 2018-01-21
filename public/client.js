@@ -162,7 +162,7 @@ let getProjects = username => {
 
 let renderAProject = (newProject) => {
     $('#projectTable tr:last').after(`
-<tr class='project'>
+<tr class='project' id='${newProject._id}>
 <td class='project-name'><span class='table-head-mobile'>Project Name: </span>${newProject.projectName}</td>
 <td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
 <td class='project-duration'><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
@@ -174,8 +174,28 @@ let renderAProject = (newProject) => {
 }
 
 let populateProjectSummary = (project) => {
-    console.log('a')
-    console.log('a')
+    $.ajax({
+            method: 'GET',
+            url: '/user/project/' + project,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+        .done(function (project) {
+            console.log('populateProjectSummary ran');
+            console.log(project);
+            $('.project-summary').attr('id', project._id);
+            $('#projectName').val(project[0].projectName);
+            $('#projectPredeccesor').val(project[0].projectPredeccesor);
+            $('#projectDuration').val(project[0].projectDuration);
+            $('#projectStart').val(project[0].projectStart);
+            $('#projectEnd').val(project[0].projectEnd);
+            $('#projectStatus').val(project[0].projectStatus);
+        })
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
 }
 
 
@@ -281,19 +301,10 @@ $('.navigate-signin-link').click(function (event) {
 $('#projectTable').on('click', '.project', (event) => {
     console.log('project trigger works');
     event.preventDefault();
-    //    let selectedProjectName = $(event.target).closest('.project').find('.project-name').text();
-    let selectedProject = {
-        projectName: 'Project 1',
-        projectPredeccesor: 'Predeccesor 1',
-        projectDuration: '33',
-        projectStart: '2018-04-20',
-        projectEnd: '2018-5-23',
-        projectStatus: 'canceled',
-        projectOwner: theUser,
-        projectTasks: []
-    }
+    let selectedProjectId = $(event.target).closest('.project').attr('id');
+    //    console.log(selectedProjectId)
     $('.hideMe').hide();
-    populateProjectSummary(selectedProject)
+    populateProjectSummary(selectedProjectId)
     $('#projectSection').show();
     $('header').show()
 });

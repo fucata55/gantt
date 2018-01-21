@@ -203,6 +203,26 @@ app.get('/user/project/all/:user', (req, res) => {
         });
 });
 
+//Retrieve user project detail
+app.get('/user/project/:projectId', (req, res) => {
+    console.log('this is get user', req.params.user)
+    Project
+        .find({
+            _id: req.params.projectId
+        }, (err, items) => {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal server error'
+                });
+            }
+            if (items) {
+                console.log(req.params.user, items)
+                return res.status(200).json(items);
+            }
+        });
+});
+
+
 //Save notes in db
 app.post('/user/project', (req, res) => {
     Project

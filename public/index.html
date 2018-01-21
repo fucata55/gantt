@@ -142,19 +142,20 @@
         <section id='projectSection' class='hideMe'>
             <div class='center'>
                 <h1>Pro Players Soccer game</h1>
-                <div class='notificationBar' class='hideMe'>There's a task that doesn't match with the project time frame</div>
-                <form action="" class='project-form inline-block'>
-                    <input class="longer-input" type="text" value="New Pro Players Soccer game" required>
-                    <input class="longer-input" type="text" value="New Bike and Build" required>
-                    <input class="shorter-input" type="text" value="15 days" required>
-                    <input class="shorter-input" type="text" value="May 25, 2017" required>
-                    <input class="shorter-input" type="text" value="April 4, 2018" required>
-                    <select name="status" id="status" required>
-                    <option value="planning">Planning</option>
-                    <option value="paused">Paused</option>
-                    <option value="canceled">Canceled</option>
-                    <option value="complete">Complete</option>
-                </select>
+                <div class='notificationBar hideMe'>There's a task that doesn't match with the project time frame</div>
+                <form action="" class='project-form inline-block project-summary' id=''>
+                    <input class="longer-input" id='projectName' type="text" value="New Pro Players Soccer game" required>
+                    <input class="longer-input" id='projectPredeccesor' type="text" value="New Bike and Build" required>
+                    <input class="shorter-input" id='projectDuration' type="text" value="15 days" required>
+                    <input class="shorter-input" id='projectStart' type="text" value="May 25, 2017" required>
+                    <!--                    <input class="shorter-input" type="text" value="April 4, 2018" required>-->
+                    <select name="status" id="projectStatus" required>
+                        <option value="Planning">Planning</option>
+                        <option value="On Going">On Going</option>
+                        <option value="Paused">Paused</option>
+                        <option value="Canceled">Canceled</option>
+                        <option value="Complete">Complete</option>
+                    </select>
                     <button class='center'>Save Edit</button>
                 </form>
                 <button id='deleteButton'>Delete Project</button>
@@ -177,7 +178,7 @@
                             <input class="shorter-input c" type="text" value="15 days" required>
                             <input class="shorter-input d" type="text" value="May 25, 2017" required>
                             <input class="shorter-input d" type="text" value="April 4, 2018" required>
-                            <select name="status" id="status" required>
+                            <select name="status" required>
                                 <option value="planning">Planning</option>
                                 <option value="paused">Paused</option>
                                 <option value="canceled">Canceled</option>
@@ -196,7 +197,7 @@
                             <input class="shorter-input c" type="text" value="25 days" required>
                             <input class="shorter-input d" type="text" value="May 25, 2017" required>
                             <input class="shorter-input d" type="text" value="June 20, 2017" required>
-                            <select name="status" id="status" required>
+                            <select name="status" required>
                                 <option value="planning">Planning</option>
                                 <option value="paused">Paused</option>
                                 <option value="canceled">Canceled</option>
@@ -207,6 +208,7 @@
                         </form>
                     </td>
                 </tr>
+                <!--
                 <tr>
                     <td class='project-order'><span class='table-head-mobile'>#</span>2</td>
                     <td colspan='7'>
@@ -216,7 +218,7 @@
                             <input class="shorter-input c" type="text" value="180 days" required>
                             <input class="shorter-input d" type="text" value="June 21, 2017" required>
                             <input class="shorter-input d" type="text" value="April 4, 2018" required>
-                            <select name="status" id="status" required>
+                            <select name="status" required>
                                 <option value="planning">Planning</option>
                                 <option value="paused">Paused</option>
                                 <option value="canceled">Canceled</option>
@@ -227,6 +229,7 @@
                         </form>
                     </td>
                 </tr>
+-->
 
 
             </table>
