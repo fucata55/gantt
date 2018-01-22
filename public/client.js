@@ -1,6 +1,6 @@
 //Define variables and functions
 let theUser
-let theProject
+let theProjectId
 
 let users = [
     {
@@ -157,6 +157,56 @@ $('#newProjectJS').submit(function (event) {
         });
 })
 
+$('#newTaskJS').submit(event => {
+    event.preventDefault();
+    console.log('new task button triggers');
+    console.log(
+        $('#newTaskName').val()
+    );
+    let newTaskStart = $('#newTaskStart').val();
+    let date = new Date(newTaskStart);
+    let newTaskEnd = new Date(date);
+    let newTaskDuration = parseInt($('#newTaskDuration').val());
+    newTaskEnd.setDate(newTaskEnd.getDate() + newTaskDuration);
+    let dd = newTaskEnd.getDate();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    let mm = newTaskEnd.getMonth() + 1;
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    let y = newTaskEnd.getFullYear();
+    let formatedTaskEnd = mm + '/' + dd + '/' + y
+    let newTask = {
+        taskName: $('#newTaskName').val(),
+        taskPredeccesor: $('#newTaskPredeccesor').val(),
+        taskDuration: newTaskDuration,
+        taskStart: $('#newTaskStart').val(),
+        taskEnd: formatedTaskEnd,
+        taskStatus: $('#newTaskStatus option:selected').val(),
+        taskOwner: theProjectId
+    };
+    console.log(newTask);
+    $.ajax({
+            method: 'POST',
+            url: '/user/project/task',
+            dataType: 'json',
+            data: JSON.stringify(newTask),
+            contentType: 'application/json'
+        })
+        //POST will respond an empty note with unique ID
+        .done(task => {
+            console.log(task)
+            renderATask(task);
+        })
+        .fail((jqXHR, error, errorThrown) => {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+})
+
 let getAProject = projectId => {
     $.ajax({
             type: 'GET',
@@ -180,17 +230,7 @@ let getProjects = username => {
             url: '/user/project/all/' + username
         })
         .done(projects => {
-            projects.forEach(project => {
-                $('#projectTable tr:last').after(`
-<tr class='project' id='${project._id}'>
-<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${project.projectName}</td>
-<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${project.projectPredeccesor}</td>
-<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${project.projectDuration}</td>
-<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${project.projectStart}</td>
-<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${project.projectEnd}</td>
-<td class='project-status'> <span class='table-head-mobile'>Status: </span>${project.projectStatus}</td>
-</tr>`)
-            })
+            projects.forEach(project => renderAProject(project))
 
         })
         .fail((jqXHR, error, errorThrown) => {
@@ -200,17 +240,45 @@ let getProjects = username => {
         });
 }
 
-let renderAProject = (newProject) => {
+let renderAProject = (project) => {
     $('#projectTable tr:last').after(`
-<tr class='project' id='${newProject._id}'>
-<td class='project-name'><span class='table-head-mobile'>Project Name: </span>${newProject.projectName}</td>
-<td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${newProject.projectPredeccesor}</td>
-<td class='project-duration'><span class='table-head-mobile'>Duration: </span>${newProject.projectDuration}</td>
-<td class='project-start'><span class='table-head-mobile'>Start Date: </span>${newProject.projectStart}</td>
-<td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${newProject.projectEnd}</td>
-<td class='project-status'> <span class='table-head-mobile'>Status: </span>${newProject.projectStatus}</td>
-</tr>
-`)
+            <tr class='project' id='${project._id}'>
+                <td class='project-name'><span class='table-head-mobile'>Project Name: </span>${project.projectName}</td>
+                <td class='project-predeccesor'><span class='table-head-mobile'>Predecessor: </span>${project.projectPredeccesor}</td>
+                <td class='project-duration'><span class='table-head-mobile'>Duration: </span>${project.projectDuration}</td>
+                <td class='project-start'><span class='table-head-mobile'>Start Date: </span>${project.projectStart}</td>
+                <td class='project-end'><span class='table-head-mobile'>Finish Date: </span>${project.projectEnd}</td>
+                <td class='project-status'> <span class='table-head-mobile'>Status: </span>${project.projectStatus}</td>
+            </tr>
+        `)
+}
+
+let renderATask = (newTask) => {
+    console.log(`renderATask ran. the new task is ${newTask.taskName}, ${newTask.taskPredeccesor}, ${newTask.taskStatus}`);
+    $('#taskTable tr:last').after(`
+    <tr>
+        <td colspan='7'>
+            <form action="" class='project-form seamless-form' id='${newTask._id}'>
+                <input class="longer-input a task-name" type="text" value='${newTask.taskName}' required>
+                    <input class="longer-input b" type="text" value='${newTask.taskPredeccesor}' required>
+                    <input class="shorter-input c" type="text" value='${newTask.taskDuration}' required>
+                    <input class="shorter-input d" type="text" value='${newTask.taskStart}' required>
+                    <input class="shorter-input d" type="text" value='${newTask.taskEnd}' required>
+                    <select name="status" id='taskStatus' value='' required>
+                        <option value="planning">Planning</option>
+                        <option value="paused">Paused</option>
+                        <option value="canceled">Canceled</option>
+                        <option value="complete">Complete</option>
+                    </select>
+                    <button class='mini-button'><img src="./edit-icon.png" alt=""></button>
+                    <button class='mini-button' id='deleteButton'><img src="./trash-icon.png" alt="trash"></button>
+            </form>
+        </td>
+    </tr>
+`);
+    $("#taskStatus").val("Canceled");
+    //    $('#taskTable tr:last').find('#taskStatus').attr('option', newTask.taskStatus);
+    //    $('#taskTable tr:last').find('#taskStatus').attr('class', '1234');
 }
 
 //populate project summary at project summary form
@@ -281,10 +349,9 @@ $('.project-summary').submit(function (event) {
             contentType: 'application/json'
         })
         .done(aproject => {
-            //            update chart details accordingly
+            //update chart details accordingly
             console.log('change project summary success');
             getAProject(project._id);
-            //            $('#projectSection h1').text(project[0].projectName);
         })
         .fail((jqXHR, error, errorThrown) => {
             console.log(jqXHR);
@@ -376,6 +443,7 @@ $(function () {
     $('#landingPage').show();
     $('#landingPageRightSideRegister').show();
     $('#newProjectStart').datepicker();
+    $('#newTaskStart').datepicker();
 })
 
 $('.navigate-register-link').click(function (event) {
@@ -398,6 +466,8 @@ $('#projectTable').on('click', '.project', (event) => {
     event.preventDefault();
     let selectedProjectId = $(event.target).closest('.project').attr('id');
     //    console.log(selectedProjectId)
+    theProjectId = selectedProjectId;
+    console.log(`theProjectId is ${theProjectId}`);
     $('.hideMe').hide();
     populateProjectSummary(selectedProjectId)
     $('#projectSection').show();

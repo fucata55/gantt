@@ -14,7 +14,8 @@ const bcrypt = require('bcryptjs');
 
 const {
     User,
-    Project
+    Project,
+    Task
 } = require('./models/user');
 
 const config = require('./config');
@@ -223,7 +224,7 @@ app.get('/user/project/:projectId', (req, res) => {
 });
 
 
-//Save notes in db
+//Save a project in db
 app.post('/user/project', (req, res) => {
     Project
         .create({
@@ -246,6 +247,32 @@ app.post('/user/project', (req, res) => {
             }
         });
 });
+
+//Save a task in db
+app.post('/user/project/task', (req, res) => {
+    Task
+        .create({
+            taskName: req.body.taskName,
+            taskPredeccesor: req.body.taskPredeccesor,
+            taskDuration: req.body.taskDuration,
+            taskStart: req.body.taskStart,
+            taskEnd: req.body.taskEnd,
+            taskStatus: req.body.taskStatus,
+            taskOwner: req.body.taskOwner
+        }, (err, item) => {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal server error'
+                });
+            }
+            if (item) {
+                console.log(`A new task is created. task is ${item}`);
+                return res.status(200).json(item);
+            }
+        });
+});
+
+
 
 
 

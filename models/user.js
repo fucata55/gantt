@@ -53,9 +53,42 @@ const projectSchema = new mongoose.Schema({
     }
 })
 
+const taskSchema = new mongoose.Schema({
+    taskName: {
+        type: String,
+        required: false
+    },
+    taskPredeccesor: {
+        type: String,
+        required: false
+    },
+    taskDuration: {
+        type: String,
+        required: false
+    },
+    taskStart: {
+        type: String,
+        required: false
+    },
+    taskEnd: {
+        type: String,
+        required: false
+    },
+    taskStatus: {
+        type: String,
+        required: false
+    },
+    taskOwner: {
+        type: String,
+        required: false
+    }
+})
+
 const User = mongoose.model('User', userSchema);
 const Project = mongoose.model('Project', projectSchema);
+const Task = mongoose.model('Task', taskSchema);
 module.exports = {
     User,
-    Project
+    Project,
+    Task
 }
