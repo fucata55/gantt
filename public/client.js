@@ -264,11 +264,12 @@ let renderATask = (newTask) => {
                     <input class="shorter-input c" type="text" value='${newTask.taskDuration}' required>
                     <input class="shorter-input d" type="text" value='${newTask.taskStart}' required>
                     <input class="shorter-input d" type="text" value='${newTask.taskEnd}' required>
-                    <select name="status" id='taskStatus' value='' required>
-                        <option value="planning">Planning</option>
-                        <option value="paused">Paused</option>
-                        <option value="canceled">Canceled</option>
-                        <option value="complete">Complete</option>
+                    <select name="status" id="taskStatus" required>
+                        <option value="Planning">Planning</option>
+                        <option value="On Going">On Going</option>
+                        <option value="Paused">Paused</option>
+                        <option value="Canceled">Canceled</option>
+                        <option value="Completed">Completed</option>
                     </select>
                     <button class='mini-button'><img src="./edit-icon.png" alt=""></button>
                     <button class='mini-button' id='deleteButton'><img src="./trash-icon.png" alt="trash"></button>
@@ -276,9 +277,8 @@ let renderATask = (newTask) => {
         </td>
     </tr>
 `);
-    $("#taskStatus").val("Canceled");
-    //    $('#taskTable tr:last').find('#taskStatus').attr('option', newTask.taskStatus);
-    //    $('#taskTable tr:last').find('#taskStatus').attr('class', '1234');
+    //$("#taskStatus").val(newTask.taskStatus);
+    $('#taskTable tr:last').find('select').val(newTask.taskStatus);
 }
 
 //populate project summary at project summary form
@@ -298,7 +298,6 @@ let populateProjectSummary = (project) => {
             $('#projectStart').val(project[0].projectStart);
             $('#projectEnd').val(project[0].projectEnd);
             $('#projectStatus').val(project[0].projectStatus);
-
         })
         .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
