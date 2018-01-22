@@ -204,6 +204,25 @@ app.get('/user/project/all/:user', (req, res) => {
         });
 });
 
+//Retrieve a project's task(s)
+app.get('/user/project/task/all/:id', (req, res) => {
+    console.log('this is get user', req.params.user)
+    Task
+        .find({
+            taskOwner: req.params.id
+        }, (err, items) => {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal server error'
+                });
+            }
+            if (items) {
+                console.log(req.params.id, items)
+                return res.status(200).json(items);
+            }
+        });
+});
+
 //Retrieve user project detail
 app.get('/user/project/:projectId', (req, res) => {
     console.log('this is get project', req.params.projectId)

@@ -240,6 +240,23 @@ let getProjects = username => {
         });
 }
 
+let getTasks = projectId => {
+    $('.task').remove();
+    $.ajax({
+            type: 'GET',
+            url: '/user/project/task/all/' + theProjectId
+        })
+        .done(tasks => {
+            console.log('getTasks successful', tasks)
+            tasks.forEach(task => renderATask(task))
+        })
+        .fail((jqXHR, error, errorThrown) => {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+}
+
 let renderAProject = (project) => {
     $('#projectTable tr:last').after(`
             <tr class='project' id='${project._id}'>
@@ -258,7 +275,7 @@ let renderATask = (newTask) => {
     $('#taskTable tr:last').after(`
     <tr>
         <td colspan='7'>
-            <form action="" class='project-form seamless-form' id='${newTask._id}'>
+            <form action="" class='project-form seamless-form task' id='${newTask._id}'>
                 <input class="longer-input a task-name" type="text" value='${newTask.taskName}' required>
                     <input class="longer-input b" type="text" value='${newTask.taskPredeccesor}' required>
                     <input class="shorter-input c" type="text" value='${newTask.taskDuration}' required>
@@ -469,6 +486,7 @@ $('#projectTable').on('click', '.project', (event) => {
     console.log(`theProjectId is ${theProjectId}`);
     $('.hideMe').hide();
     populateProjectSummary(selectedProjectId)
+    getTasks(theProjectId);
     $('#projectSection').show();
     $('header').show()
 });
