@@ -376,6 +376,22 @@ app.delete('/user/project/:id', (req, res) => {
         });
 });
 
+//delete task
+app.delete('/user/project/task/:id', (req, res) => {
+    console.log(req.params.id);
+    Task
+        .findByIdAndRemove(req.params.id)
+        .then(() => {
+            return res.status(204).end();
+        })
+        .catch(function () {
+            console.error(err);
+            res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        });
+});
+
 
 
 

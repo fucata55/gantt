@@ -542,9 +542,28 @@ $('#taskTable').on('click', '.edit-task-button', event => {
             contentType: 'application/json'
         })
         .done(() => {
-            $('.task-row').remove();
             getTasks(theProjectId);
             console.log('editing a task is success');
+        })
+        .fail((jqXHR, error, errorThrown) => {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+
+})
+
+$('#taskTable').on('click', '.delete-task-button', event => {
+    event.preventDefault();
+    let taskIdToDelete = $(event.target).closest('form').attr('id');
+    console.log(taskIdToDelete);
+    $.ajax({
+            method: 'DELETE',
+            url: '/user/project/task/' + taskIdToDelete,
+        })
+        .done(() => {
+            getTasks(theProjectId);
+            console.log('deleting a task is success');
         })
         .fail((jqXHR, error, errorThrown) => {
             console.log(jqXHR);
