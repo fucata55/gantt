@@ -241,7 +241,7 @@ let getProjects = username => {
 }
 
 let getTasks = projectId => {
-    $('.task').remove();
+    $('.task-row').remove();
     $.ajax({
             type: 'GET',
             url: '/user/project/task/all/' + theProjectId
@@ -273,28 +273,27 @@ let renderAProject = (project) => {
 let renderATask = (newTask) => {
     console.log(`renderATask ran. the new task is ${newTask.taskName}, ${newTask.taskPredeccesor}, ${newTask.taskStatus}`);
     $('#taskTable tr:last').after(`
-    <tr>
+    <tr class='task-row'>
         <td colspan='7'>
             <form action="" class='project-form seamless-form task' id='${newTask._id}'>
-                <input class="longer-input a task-name" type="text" value='${newTask.taskName}' required>
-                    <input class="longer-input b" type="text" value='${newTask.taskPredeccesor}' required>
-                    <input class="shorter-input c" type="text" value='${newTask.taskDuration}' required>
-                    <input class="shorter-input d" type="text" value='${newTask.taskStart}' required>
-                    <input class="shorter-input d" type="text" value='${newTask.taskEnd}' required>
-                    <select name="status" id="taskStatus" required>
+                    <input class="longer-input a task-name" type="text" value='${newTask.taskName}' required>
+                    <input class="longer-input b task-predeccesor" type="text" value='${newTask.taskPredeccesor}' required>
+                    <input class="shorter-input c task-duration" type="text" value='${newTask.taskDuration}' required>
+                    <input class="shorter-input d task-start" type="text" value='${newTask.taskStart}' required>
+                    <input class="shorter-input d task-end" type="text" value='${newTask.taskEnd}' readonly>
+                    <select name="status" class='task-status' required>
                         <option value="Planning">Planning</option>
                         <option value="On Going">On Going</option>
                         <option value="Paused">Paused</option>
                         <option value="Canceled">Canceled</option>
                         <option value="Completed">Completed</option>
                     </select>
-                    <button class='mini-button'><img src="./edit-icon.png" alt=""></button>
-                    <button class='mini-button' id='deleteButton'><img src="./trash-icon.png" alt="trash"></button>
+                    <button class='mini-button edit-task-button'><img src="./edit-icon.png" alt=""></button>
+                    <button class='mini-button delete-task-button' id='deleteButton'><img src="./trash-icon.png" alt="trash"></button>
             </form>
         </td>
     </tr>
 `);
-    //$("#taskStatus").val(newTask.taskStatus);
     $('#taskTable tr:last').find('select').val(newTask.taskStatus);
 }
 
@@ -460,6 +459,7 @@ $(function () {
     $('#landingPageRightSideRegister').show();
     $('#newProjectStart').datepicker();
     $('#newTaskStart').datepicker();
+    $('.task-start').datepicker();
 })
 
 $('.navigate-register-link').click(function (event) {
@@ -506,7 +506,56 @@ $('#navigateHome').click(function (event) {
     $('header').show();
 });
 
+$('#taskTable').on('click', '.edit-task-button', event => {
+    event.preventDefault();
+    let taskStartToEdit = $(event.target).closest('form').find('.task-start').val();
+    let date = new Date(taskStartToEdit);
+    let taskEndToEdit = new Date(date);
+    let taskDurationToEdit = parseInt($(event.target).closest('form').find('.task-duration').val());
+    taskEndToEdit.setDate(taskEndToEdit.getDate() + taskDurationToEdit);
+    let dd = taskEndToEdit.getDate();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    let mm = taskEndToEdit.getMonth() + 1;
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    let y = taskEndToEdit.getFullYear();
+    let formatedTaskEnd = mm + '/' + dd + '/' + y
+    let taskToEdit = {
+        _id: $(event.target).closest('form').attr('id'),
+        taskName: $(event.target).closest('form').find('.task-name').val(),
+        taskPredeccesor: $(event.target).closest('form').find('.task-predeccesor').val(),
+        taskDuration: taskDurationToEdit,
+        taskStart: taskStartToEdit,
+        taskEnd: formatedTaskEnd,
+        taskStatus: $(event.target).closest('form').find('.task-status option:selected').val(),
+        taskOwner: theProjectId
+    };
+    console.log(taskToEdit);
+    $.ajax({
+            method: 'PUT',
+            url: '/user/project/task/' + taskToEdit._id,
+            dataType: 'json',
+            data: JSON.stringify(taskToEdit),
+            contentType: 'application/json'
+        })
+        .done(() => {
+            $('.task-row').remove();
+            getTasks(theProjectId);
+            console.log('editing a task is success');
+        })
+        .fail((jqXHR, error, errorThrown) => {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        });
+
+})
+
 $('#deleteProjectButton').click(event => {
+    event.preventDefault();
     let projectIdToDelete = $(event.target).closest('.center').find('.project-summary').attr('id');
     console.log('delete trigger', projectIdToDelete);
     deleteProject(projectIdToDelete);

@@ -311,7 +311,7 @@ app.get('/user/notes/a/:id', function (req, res) {
         });
 });
 
-//update project
+//update projects
 app.put('/user/project/:id', (req, res) => {
     let toUpdate = {};
     let updateableFields = ['_id', 'projectName', 'projectPredeccesor', 'projectDuration', 'projectStart', 'projectEnd', 'projectStatus'];
@@ -336,6 +336,31 @@ app.put('/user/project/:id', (req, res) => {
         }));
 });
 
+//update tasks
+app.put('/user/project/task/:id', (req, res) => {
+    let toUpdate = {};
+    let updateableFields = ['_id', 'taskName', 'taskPredeccesor', 'taskDuration', 'taskStart', 'taskEnd', 'taskStatus'];
+    updateableFields.forEach(function (field) {
+        if (field in req.body) {
+            toUpdate[field] = req.body[field];
+        }
+    });
+
+    console.log(`req.params.id is ${req.params.id}`)
+    Task
+        .findByIdAndUpdate(req.params.id, toUpdate, {
+            new: true
+        })
+        .then(task => {
+            console.log(task);
+            return res.status(204).json(task);
+        })
+        .catch(err => res.status(500).json({
+            message: 'Internal Server Error'
+        }));
+});
+
+//delete project
 app.delete('/user/project/:id', (req, res) => {
     console.log(req.params.id);
     Project
