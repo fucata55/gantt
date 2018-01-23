@@ -1,6 +1,7 @@
 //Define variables and functions
 let theUser
 let theProjectId
+let theProjectName
 
 let users = [
     {
@@ -14,7 +15,9 @@ let users = [
 ];
 
 let projects = [];
-
+let arrayOfTasks = [];
+let arrayOfStarts = [];
+let arrayOfEnds = [];
 
 
 let validateRegister = (username, password, confirm) => {
@@ -197,8 +200,9 @@ $('#newTaskJS').submit(event => {
         })
         //POST will respond an empty note with unique ID
         .done(task => {
-            console.log(task)
-            renderATask(task);
+            console.log(task);
+            //            renderATask(task);
+            getTasks(theProjectId);
         })
         .fail((jqXHR, error, errorThrown) => {
             console.log(jqXHR);
@@ -214,7 +218,9 @@ let getAProject = projectId => {
         })
         .done(project => {
             console.log(project);
-            $('#projectSection h1').text(project[0].projectName)
+            theProjectName = project[0].projectName
+            $('#projectSection h1').text(theProjectName)
+
         })
         .fail((jqXHR, error, errorThrown) => {
             console.log(jqXHR);
@@ -242,13 +248,23 @@ let getProjects = username => {
 
 let getTasks = projectId => {
     $('.task-row').remove();
+    arrayOfTasks = [];
+    arrayOfStart = [];
+    arrayOfEnds = [];
     $.ajax({
             type: 'GET',
             url: '/user/project/task/all/' + theProjectId
         })
         .done(tasks => {
             console.log('getTasks successful', tasks)
-            tasks.forEach(task => renderATask(task))
+            tasks.forEach(task => {
+                console.log(task, task.taskName);
+                renderATask(task);
+                arrayOfTasks.push(task.taskName);
+                arrayOfStarts.push(task.taskStart);
+                arrayOfEnds.push(task.taskEnd);
+            })
+            showChart(theProjectId);
         })
         .fail((jqXHR, error, errorThrown) => {
             console.log(jqXHR);
@@ -271,7 +287,7 @@ let renderAProject = (project) => {
 }
 
 let renderATask = (newTask) => {
-    console.log(`renderATask ran. the new task is ${newTask.taskName}, ${newTask.taskPredeccesor}, ${newTask.taskStatus}`);
+    //    console.log(`renderATask ran. the new task is ${newTask.taskName}, ${newTask.taskPredeccesor}, ${newTask.taskStatus}`);
     $('#taskTable tr:last').after(`
     <tr class='task-row'>
         <td colspan='7'>
@@ -304,8 +320,8 @@ let populateProjectSummary = (project) => {
             url: '/user/project/' + project
         })
         .done(project => {
-            showChart(project);
-            console.log('populateProjectSummary ran', project[0]);
+            //            console.log('populateProjectSummary ran', project[0]);
+            theProjectName = project[0].projectName
             $('#projectSection h1').text(project[0].projectName);
             $('.project-summary').attr('id', project[0]._id);
             $('#projectName').val(project[0].projectName);
@@ -375,15 +391,30 @@ $('.project-summary').submit(function (event) {
         });
 })
 
-let showChart = (project, tasks) => {
-    console.log('showChart ran', project);
-    let aproject = project[0];
+let showChart = (theProject) => {
+    console.log('showChart ran', theProject);
+    console.log(arrayOfTasks, arrayOfStarts, arrayOfEnds)
+    $('#container').empty();
+    let arrayOfPeriods = [];
+    for (let i = 0; i < arrayOfTasks.length; i++) {
+        let [yyyy, dd, mm] = arrayOfStarts[i].split('/').reverse().map(string => parseInt(string));
+        let [yyyy2, dd2, mm2] = arrayOfEnds[i].split('/').reverse().map(string => parseInt(string));
+        mm = mm - 1;
+        mm2 = mm2 - 1
+        console.log(i, yyyy, mm, dd, yyyy2, mm2, dd2)
+        arrayOfPeriods.push({
+            x: Date.UTC(yyyy, mm, dd),
+            x2: Date.UTC(yyyy2, mm2, dd2),
+            y: i
+        })
+    };
     Highcharts.chart('container', {
+
         chart: {
             type: 'xrange'
         },
         title: {
-            text: aproject.projectName
+            text: theProjectName
         },
         xAxis: {
             type: 'datetime'
@@ -392,7 +423,7 @@ let showChart = (project, tasks) => {
             title: {
                 text: ''
             },
-            categories: ['test', 'Planning', 'Development', 'Testing'],
+            categories: arrayOfTasks,
             reversed: true
         },
         series: [{
@@ -401,35 +432,11 @@ let showChart = (project, tasks) => {
             // groupPadding: 0,
             borderColor: 'gray',
             pointWidth: 20,
-            data: [{
-                x: Date.UTC(2014, 10, 01),
-                x2: Date.UTC(2014, 11, 2),
-                y: 0
-            }, {
-                x: Date.UTC(2014, 11, 2),
-                x2: Date.UTC(2014, 11, 5),
-                y: 1
-            }, {
-                x: Date.UTC(2014, 11, 8),
-                x2: Date.UTC(2014, 11, 9),
-                y: 2
-            }, {
-                x: Date.UTC(2014, 11, 9),
-                x2: Date.UTC(2014, 11, 19),
-                y: 1
-            }, {
-                x: Date.UTC(2014, 11, 10),
-                x2: Date.UTC(2014, 11, 23),
-                y: 2
-            }, {
-                x: Date.UTC(2014, 11, 10),
-                x2: Date.UTC(2014, 11, 23),
-                y: 3
-            }],
+            data: arrayOfPeriods,
             dataLabels: {
                 enabled: false
             }
-        }]
+            }]
     })
 };
 
@@ -478,12 +485,12 @@ $('.navigate-signin-link').click(function (event) {
 })
 
 $('#projectTable').on('click', '.project', (event) => {
-    console.log('project trigger works');
+    //    console.log('project trigger works');
     event.preventDefault();
     let selectedProjectId = $(event.target).closest('.project').attr('id');
     //    console.log(selectedProjectId)
     theProjectId = selectedProjectId;
-    console.log(`theProjectId is ${theProjectId}`);
+    //    console.log(`theProjectId is ${theProjectId}`);
     $('.hideMe').hide();
     populateProjectSummary(selectedProjectId)
     getTasks(theProjectId);
@@ -556,14 +563,14 @@ $('#taskTable').on('click', '.edit-task-button', event => {
 $('#taskTable').on('click', '.delete-task-button', event => {
     event.preventDefault();
     let taskIdToDelete = $(event.target).closest('form').attr('id');
-    console.log(taskIdToDelete);
+    //    console.log(taskIdToDelete);
     $.ajax({
             method: 'DELETE',
             url: '/user/project/task/' + taskIdToDelete,
         })
         .done(() => {
             getTasks(theProjectId);
-            console.log('deleting a task is success');
+            //            console.log('deleting a task is success');
         })
         .fail((jqXHR, error, errorThrown) => {
             console.log(jqXHR);
