@@ -328,8 +328,7 @@ app.put('/user/project/:id', (req, res) => {
         })
         .then(project => {
             console.log(project);
-            return res.status(204);
-            //.json(project);
+            return res.status(204).json(project);
         })
         .catch(err => res.status(500).json({
             message: 'Internal Server Error'

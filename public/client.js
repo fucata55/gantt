@@ -220,6 +220,7 @@ let getAProject = projectId => {
             console.log(project);
             theProjectName = project[0].projectName
             $('#projectSection h1').text(theProjectName)
+            showChart();
 
         })
         .fail((jqXHR, error, errorThrown) => {
@@ -249,7 +250,7 @@ let getProjects = username => {
 let getTasks = projectId => {
     $('.task-row').remove();
     arrayOfTasks = [];
-    arrayOfStart = [];
+    arrayOfStarts = [];
     arrayOfEnds = [];
     $.ajax({
             type: 'GET',
@@ -391,20 +392,20 @@ $('.project-summary').submit(function (event) {
         });
 })
 
-let showChart = (theProject) => {
-    console.log('showChart ran', theProject);
-    console.log(arrayOfTasks, arrayOfStarts, arrayOfEnds)
+let showChart = () => {
+    //console.log('showChart ran', theProject);
+    //console.log(arrayOfTasks, arrayOfStarts, arrayOfEnds)
     $('#container').empty();
     let arrayOfPeriods = [];
     for (let i = 0; i < arrayOfTasks.length; i++) {
         let [yyyy, dd, mm] = arrayOfStarts[i].split('/').reverse().map(string => parseInt(string));
         let [yyyy2, dd2, mm2] = arrayOfEnds[i].split('/').reverse().map(string => parseInt(string));
-        mm = mm - 1;
-        mm2 = mm2 - 1
-        console.log(i, yyyy, mm, dd, yyyy2, mm2, dd2)
+        let monthOne = mm - 1;
+        let monthTwo = mm2 - 1
+        console.log(i, yyyy, monthOne, dd, yyyy2, monthTwo, dd2)
         arrayOfPeriods.push({
-            x: Date.UTC(yyyy, mm, dd),
-            x2: Date.UTC(yyyy2, mm2, dd2),
+            x: Date.UTC(yyyy, monthOne, dd),
+            x2: Date.UTC(yyyy2, monthTwo, dd2),
             y: i
         })
     };
