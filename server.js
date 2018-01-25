@@ -61,7 +61,7 @@ function closeServer() {
     }));
 }
 
-
+//API 1
 //responding user registration
 app.post('/register', (req, res) => {
     console.log(req.body.username, req.body.password);
@@ -127,6 +127,7 @@ app.post('/register', (req, res) => {
         });
 });
 
+//API 2
 //responding user login
 app.post('/signin', (req, res) => {
     User
@@ -145,8 +146,6 @@ app.post('/signin', (req, res) => {
                 return res.status(401).json({
                     message: 'Invalid username and password combination'
                 });
-                //when client.js receives username and password, use the username to GET request of notes in db
-                //send the whole object to client
             } else {
                 items.validatePassword(req.body.password, (err, isValid) => {
                     if (err) {
@@ -168,23 +167,7 @@ app.post('/signin', (req, res) => {
         });
 });
 
-//responding to get users
-//url '/users' method GET
-app.get('/users', (req, res) => {
-    User
-        .find()
-        .then(data => {
-            console.log(data);
-            return res.status(200).json(data);
-        })
-        .catch(() => {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        });
-})
-
+//API 3
 //Retrieve a user's project(s)
 app.get('/user/project/all/:user', (req, res) => {
     console.log('this is get user', req.params.user)
@@ -204,6 +187,7 @@ app.get('/user/project/all/:user', (req, res) => {
         });
 });
 
+//API 4
 //Retrieve a project's task(s)
 app.get('/user/project/task/all/:id', (req, res) => {
     console.log('this is get user', req.params.user)
@@ -223,7 +207,8 @@ app.get('/user/project/task/all/:id', (req, res) => {
         });
 });
 
-//Retrieve user project detail
+//API 5
+//Retrieve user's project
 app.get('/user/project/:projectId', (req, res) => {
     console.log('this is get project', req.params.projectId)
     Project
@@ -242,7 +227,7 @@ app.get('/user/project/:projectId', (req, res) => {
         });
 });
 
-
+//API 6
 //Save a project in db
 app.post('/user/project', (req, res) => {
     Project
@@ -267,6 +252,8 @@ app.post('/user/project', (req, res) => {
         });
 });
 
+
+//API 7
 //Save a task in db
 app.post('/user/project/task', (req, res) => {
     Task
@@ -292,25 +279,7 @@ app.post('/user/project/task', (req, res) => {
 });
 
 
-
-
-
-app.get('/user/notes/a/:id', function (req, res) {
-    //    console.log(req.params.id, "testing");
-    Note
-        .findById(req.params.id)
-        .then(note => {
-            console.log(note);
-            return res.status(200).json(note);
-        })
-        .catch(function (note) {
-            console.error(err);
-            res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        });
-});
-
+//API 8
 //update projects
 app.put('/user/project/:id', (req, res) => {
     let toUpdate = {};
@@ -335,6 +304,8 @@ app.put('/user/project/:id', (req, res) => {
         }));
 });
 
+
+//API 9
 //update tasks
 app.put('/user/project/task/:id', (req, res) => {
     let toUpdate = {};
@@ -359,6 +330,8 @@ app.put('/user/project/task/:id', (req, res) => {
         }));
 });
 
+
+//API 10
 //delete project
 app.delete('/user/project/:id', (req, res) => {
     console.log(req.params.id);
@@ -375,6 +348,8 @@ app.delete('/user/project/:id', (req, res) => {
         });
 });
 
+
+//API 11
 //delete task
 app.delete('/user/project/task/:id', (req, res) => {
     console.log(req.params.id);
@@ -391,13 +366,6 @@ app.delete('/user/project/task/:id', (req, res) => {
         });
 });
 
-
-
-
-
-//Get a note app.get('/user/notes/:id', (req, res) => {
-//
-//})
 
 
 exports.app = app;
